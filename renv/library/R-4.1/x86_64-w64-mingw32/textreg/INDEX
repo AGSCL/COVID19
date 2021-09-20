@@ -1,0 +1,64 @@
+bathtub                 Sample of cleaned OSHA accident summaries.
+build.corpus            Build a corpus that can be used in the textreg
+                        call.
+calc.loss               Calculate total loss of model (Squared hinge
+                        loss).
+clean.text              Clean text and get it ready for textreg.
+cluster.phrases         Cluster phrases based on similarity of
+                        appearance.
+convert.tm.to.character
+                        Convert tm corpus to vector of strings.
+cpp_build.corpus        Driver function for the C++ function.
+cpp_textreg             Driver function for the C++ function.
+dirtyBathtub            Sample of raw-text OSHA accident summaries.
+find.CV.C               K-fold cross-validation to determine optimal
+                        tuning parameter
+find.threshold.C        Conduct permutation test on labeling to get
+                        null distribution of regularization parameter.
+grab.fragments          Grab all fragments in a corpus with given
+                        phrase.
+is.fragment.sample      Is object a fragment.sample object?
+is.textreg.corpus       Is object a textreg.corpus object?
+is.textreg.result       Is object a textreg.result object?
+list.table.chart        Graphic showing multiple word lists
+                        side-by-side.
+make.CV.chart           Plot K-fold cross validation curves
+make.appearance.matrix
+                        Make phrase appearance matrix from textreg
+                        result.
+make.count.table        Count number of times documents have a given
+                        phrase.
+make.list.table         Collate multiple regression runs.
+make.path.matrix        Generate matrix describing gradient descent
+                        path of textreg.
+make.phrase.correlation.chart
+                        Generate visualization of phrase overlap.
+make.phrase.matrix      Make a table of where phrases appear in a
+                        corpus
+make.similarity.matrix
+                        Calculate similarity matrix for set of phrases.
+make_search_phrases     Convert phrases to appropriate search string.
+path.matrix.chart       Plot optimization path of textreg.
+phrase.count            Count phrase appearance.
+phrase.matrix           Make matrix of where phrases appear in corpus.
+phrases                 Get the phrases from the textreg.result object?
+plot.textreg.result     Plot the sequence of features as they are
+                        introduced with the textreg gradient descent
+                        program.
+predict.textreg.result
+                        Predict labeling with the selected phrases.
+print.fragment.sample   Pretty print results of phrase sampling object.
+print.textreg.corpus    Pretty print textreg corpus object
+print.textreg.result    Pretty print results of textreg regression.
+reformat.textreg.model
+                        Clean up output from textreg.
+sample.fragments        Sample fragments of text to contextualize a
+                        phrase.
+save.corpus.to.files    Save corpus to text (and RData) file.
+stem.corpus             Step corpus with annotation.
+testCorpora             Some small, fake test corpora.
+textreg                 Sparse regression of labeling vector onto all
+                        phrases in a corpus.
+textreg-package         Sparse regression package for text that allows
+                        for multiple word phrases.
+tm_gregexpr             Call gregexpr on the content of a tm Corpus.

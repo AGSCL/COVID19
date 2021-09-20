@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download Oxford non-pharmaceutical interventions data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for download_oxford_npi_data {tidycovid19}"><tr><td>download_oxford_npi_data {tidycovid19}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download Oxford non-pharmaceutical interventions data</h2>
+
+<h3>Description</h3>
+
+<p>Downloads non-pharmaceutical interventions (NPI) data related to Covid-19
+from the Oxford Covid-19 Government Response Tracker.
+(<a href="https://www.bsg.ox.ac.uk/research/research-projects/oxford-covid-19-government-response-tracker">https://www.bsg.ox.ac.uk/research/research-projects/oxford-covid-19-government-response-tracker</a>).
+It currently only uses the policy measures from that data and tidies them
+into long format, defining observations to be interventions and discarding
+observations with <code>NA</code> and unchanged <code>0</code> measures.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+download_oxford_npi_data(type = "measures", silent = FALSE, cached = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>The type of data that you want to retrieve. Can be any subset of
+</p>
+
+<ul>
+<li><p>&quot;measures&quot;: Government response measures, recoded to event-day structure
+</p>
+</li>
+<li><p>&quot;index&quot;: The Strigency Indices as repored by the OxCGRT team
+</p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+<p>Whether you want the function to send some status messages to
+the console. Might be informative as downloading will take some time
+and thus defaults to <code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>cached</code></td>
+<td>
+<p>Whether you want to download the cached version of the data
+from the tidycovid19 Github repository instead of retrieving the
+data from the authorative source. Downloading the cached version is
+faster and the cache is updated daily. Defaults to <code>FALSE</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Oxford data is currently not included in the data frame
+produced by <code>download_merged_data()</code> as the ACAPS NPI data seem
+to be of better quality overall. See
+<a href="https://joachim-gassen.github.io/2020/04/exploring-and-benchmarking-oxford-government-response-data/">this blog post</a>
+and this
+<a href="https://github.com/OxCGRT/covid-policy-tracker/issues/1">Github issue</a>
+for a discussion.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If only one <code>type</code> was selected, a data frame containing the
+data. Otherwise, a list containing the desired data frames ordered as
+in <code>type</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+df &lt;- download_oxford_npi_data(type = "measures", silent = TRUE, cached = TRUE)
+df %&gt;%
+  dplyr::group_by(country) %&gt;%
+  dplyr::summarise(number_of_interventions = dplyr::n()) %&gt;%
+  dplyr::arrange(-number_of_interventions)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>tidycovid19</em> version 0.0.0.9000 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

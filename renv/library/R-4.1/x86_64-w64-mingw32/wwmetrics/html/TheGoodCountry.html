@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Good Country Index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for TheGoodCountry {wwmetrics}"><tr><td>TheGoodCountry {wwmetrics}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Good Country Index</h2>
+
+<h3>Description</h3>
+
+<p>Data from The Good Country Index: &quot;The idea of the Good Country Index is simple: to measure what each country on earth contributes to the common good of humanity, and what it takes away, relative to its size. Using a wide range of data from the U.N. and other international organisations, we’ve given each country a balance-sheet to show at a glance whether it’s a net creditor to mankind, a burden on the planet, or something in between.&quot; (source: https://goodcountry.org/index/about-the-index)
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+data("TheGoodCountry")
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A tibble with 163 observations and 9 variables:
+</p>
+
+<ul>
+<li><p> Country. Factor indicating the country (ISO3 code).
+</p>
+</li>
+<li><p> science_and_technology. Ordered factor indicating the rank of the country in terms of &quot;Contributions to Science &amp; Technology. 1. International students: Number of foreign students studying in the country (according to UNESCO) relative to the size of the economy. 2. Journal exports: Exports of periodicals, scientific journals and newspapers (according to ITC) relative to the size of the economy. 3. International publications: Number of articles published in international journals (according to SCImago) relative to the size of the economy. 4. Nobel prizes: Accumulated Nobel prizes (up to 2014) assigned to countries based on laureates' country of birth as well as country (countries) of institutional affiliation at the time of the award, relative to the size of the economy. 5. Patents: Number of International Patent Cooperation Treaty applications (according to WIPO) relative to the size of the economy.&quot; (more details [here]https://docs.google.com/spreadsheets/d/1o5DPYXoGmDEtqEZhGgvBDcXeEaVieMeSkFYoo9BiSXM/edit#gid=1206169975)
+</p>
+</li>
+<li><p> culture. Ordered factor indicating the rank of the country in terms of &quot;Contributions to Culture. 6. Creative goods exports: Exports of creative goods (UNCTAD's Creative Economy Report categorisation) relative to the size of the economy. 7. Creative services exports: Exports of creative services (according to ITC's &quot;trade in services&quot; categories 10 and 11) relative to the size of the economy. 8. UNESCO dues in arrears as 
+</p>
+</li>
+<li><p> international_peace_and_security. Ordered factor indicating the rank of the country in terms of &quot;Contributions to International Peace and Security. 11. Peacekeeping troops: Number of peacekeeping troops sent overseas for UN missions, relative to the size of the economy. 12. Dues in arrears to UN peace keeping budgets as 
+</p>
+</li>
+<li><p> world_order. Ordered factor indicating the rank of the country in terms of &quot;Contributions to World Order. 16. Charity giving: Percentage of population that gives to charity (according to Charities Aid Foundation) as proxy for cosmopolitan attitude. 17. Refugees hosted: Number of refugees hosted (according to UNHCR) relative to the size of the economy. 18. Refugees generated: Number of refugees overseas (according to UNHCR) relative to the size of the population (negative indicator). 19. Birth rate: Population birth rate (according to World Bank as negative indicator). 20. UN Treaties signed: Number of UN treaties signed (up to 2014) as proxy for diplomatic action and peaceful conflict resolution.&quot; (more details [here]https://docs.google.com/spreadsheets/d/1o5DPYXoGmDEtqEZhGgvBDcXeEaVieMeSkFYoo9BiSXM/edit#gid=1206169975)(more details [here]https://docs.google.com/spreadsheets/d/1o5DPYXoGmDEtqEZhGgvBDcXeEaVieMeSkFYoo9BiSXM/edit#gid=1206169975)
+</p>
+</li>
+<li><p> planet_and_climate. Ordered factor indicating the rank of the country in terms of &quot;Contributions to Planet and Climate. 21. Ecological footprint (2013): National Footprint Accounts, Ecological footprint (according to Global Footprint Network) relative to the size of the economy (negative indicator). 22. Reforestation since 1992: Re-/De-forestation since 1992 (according to UNEP Environmental Data Explorer). 23. Hazardous pesticides exports: Hazardous pesticides exports (according to UNEP Environmental Data Explorer) relative to the size of the economy (negative indicator). 24. CO2 emissions (2013): CO2 emissions (according to World Bank) relative to the size of the economy (negative indicator). 25. Ozone: Consumption of ozone-depleting substances - all (according to UNEP Environmental Data Explorer) relative to the size of the economy (negative indicator).&quot; (more details [here]https://docs.google.com/spreadsheets/d/1o5DPYXoGmDEtqEZhGgvBDcXeEaVieMeSkFYoo9BiSXM/edit#gid=1206169975)
+</p>
+</li>
+<li><p> prosperity_and_equality. Ordered factor indicating the rank of the country in terms of &quot;Contributions to Prosperity and Equality. 26. Open trading: Trading across borders (open trading performance compared to best practice; i.e. IFC distance to frontier). 27. UN volunteers abroad: Number of aid workers and volunteers sent overseas (according to UNV) relative to the size of the economy. 28. Fairtrade market size: Fairtrade market size (according to Fairtrade International) relative to the size of the economy. 29. FDI outflows: FDI outflow (according to UNCTAD) relative to the size of the economy. 30. Development assistance: Development cooperation contributions (aid according to Development Initiatives) relative to the size of the economy.&quot; (more details [here]https://docs.google.com/spreadsheets/d/1o5DPYXoGmDEtqEZhGgvBDcXeEaVieMeSkFYoo9BiSXM/edit#gid=1206169975)
+</p>
+</li>
+<li><p> health_and_wellbeing. Ordered factor indicating the rank of the country in terms of &quot;Contributions to Health and Wellbeing. 31. Food aid: Food aid funding (according to WFP) relative to the size of the economy. 32. Pharmaceutical exports: Exports of pharmaceuticals (according to ITC) relative to the size of the economy. 33. Voluntary excess donations to the WHO: Voluntary excess contributions to World Health Organisation relative to the size of the economy. 34. Humanitarian aid donations: Humanitarian aid contributions (according to UNOCHA) relative to the size of the economy. 35. International Health Regulations Compliance: International Health Regulations Compliance (according to WHO).&quot; (more details [here]https://docs.google.com/spreadsheets/d/1o5DPYXoGmDEtqEZhGgvBDcXeEaVieMeSkFYoo9BiSXM/edit#gid=1206169975)
+</p>
+</li>
+<li><p> overall_rank. Ordered factor indicating the rank of the country in terms of &quot;The overall rank is based on the average of the category ranks. All data is 2014 data unless otherwise indicated. The actual overall rank is based on 163 countries included in the index and the mean rank score for the 7 category ranks.&quot; (more details [here]https://docs.google.com/spreadsheets/d/1o5DPYXoGmDEtqEZhGgvBDcXeEaVieMeSkFYoo9BiSXM/edit#gid=1206169975)
+</p>
+</li></ul>
+
+
+<h3>Source</h3>
+
+<p><a href="https://goodcountry.org/index/about-the-index">https://goodcountry.org/index/about-the-index</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>[Simon Anholt]https://goodcountry.org/
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>wwmetrics</em> version 0.1.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

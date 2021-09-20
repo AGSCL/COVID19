@@ -1,0 +1,6 @@
+Morticd10_part1 filter=lfs diff=lfs merge=lfs -text
+TemperaturesGRIDdata.zip filter=lfs diff=lfs merge=lfs -text
+TemperatureGRID/TemperaturesGRIDdata.zip filter=lfs diff=lfs merge=lfs -text
+Morticd10_part2 filter=lfs diff=lfs merge=lfs -text
+weather.csv filter=lfs diff=lfs merge=lfs -text
+weather.zip filter=lfs diff=lfs merge=lfs -text

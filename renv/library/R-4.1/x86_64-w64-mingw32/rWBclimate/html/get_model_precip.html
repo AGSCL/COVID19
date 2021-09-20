@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download GCM precipitation data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for get_model_precip {rWBclimate}"><tr><td>get_model_precip {rWBclimate}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download GCM precipitation data</h2>
+
+<h3>Description</h3>
+
+<p>Function wraps get_climate_data() and returns precipitation
+by basin or country in mm as output from all 15 models, for the a1 and b2 scenarios.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+get_model_precip(locator, type, start, end)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>locator</code></td>
+<td>
+<p>A vector of either watershed basin ID's from http://data.worldbank.org/sites/default/files/climate_data_api_basins.pdf
+It can be just a single basin id, or a vector of ids.  ids should be strings.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>the type of data to retrieve, must be &quot;mavg&quot; for monthly averages,
+&quot;annualavg&quot; for annual averages, &quot;manom&quot; for monthly anomaly, and &quot;annualanom&quot; for 
+annual anomaly.</p>
+</td></tr>
+<tr valign="top"><td><code>start</code></td>
+<td>
+<p>the start year to gather data for.</p>
+</td></tr>
+<tr valign="top"><td><code>end</code></td>
+<td>
+<p>the end year to gather data to.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>start and end year can be any years, but all years will be coerced
+into periods outlined by the API (http://data.worldbank.org/developers/climate  -data-api)
+anomaly periods are only valid for future scenarios and based on a 
+reference period of 1969 - 1999, see API for full details.
+</p>
+
+
+<h3>Value</h3>
+
+<p>a dataframe with precipitation predictions in mm for all scenarios, gcms, for each time period.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Get data for 2 basins, annual average precipitation for all valid time periods
+# then subset them, and plot
+precip_dat &lt;- get_model_precip(c("2","231"),"annualavg",1900,3000)
+precip_dat &lt;- subset(precip_dat,precip_dat$gcm=="ukmo_hadcm3")
+precip_dat &lt;- subset(precip_dat,precip_dat$scenario!="b1")
+ggplot(precip_dat,aes(x=fromYear,y=annualData,group=locator,colour=locator))+geom_path()
+
+### Get data for 4 countries with monthly precipitation values
+precip_dat &lt;- get_model_precip(c("USA","BRA","CAN","YEM"),"mavg",2020,2030)
+precip_dat &lt;- subset(precip_dat,precip_dat$gcm=="ukmo_hadcm3")
+precip_dat &lt;- subset(precip_dat,precip_dat$scenario!="b1")
+ggplot(precip_dat,aes(x=as.factor(month),y=monthVals,group=locator,colour=locator))+geom_path()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rWBclimate</em> version 0.1.5.91 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

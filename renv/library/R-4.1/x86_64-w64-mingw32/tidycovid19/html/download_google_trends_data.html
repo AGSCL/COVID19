@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download Google Trends data on Covid-19</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for download_google_trends_data {tidycovid19}"><tr><td>download_google_trends_data {tidycovid19}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download Google Trends data on Covid-19</h2>
+
+<h3>Description</h3>
+
+<p>Downloads Google Trends data (<a href="https://trends.google.com/trends/">https://trends.google.com/trends/</a>)
+about the 2020 search activity for a given search term at global and
+country levels. The search term defaults to &quot;coronavirus&quot; to reflect
+the relative public attention to the Covid-19 pandemic.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+download_google_trends_data(
+  search_term = "coronavirus",
+  type = "country_day",
+  countries = NULL,
+  low_search_volume = FALSE,
+  pause = TRUE,
+  silent = FALSE,
+  cached = FALSE
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>search_term</code></td>
+<td>
+<p>Defaults to &quot;coronavirus&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>The type of data that you want to retrieve. Can be any subset of
+</p>
+
+<ul>
+<li><p>&quot;country&quot;: Relative search activity at the global level, reporting by country.
+</p>
+</li>
+<li><p>&quot;country_day&quot;: Relative search activity at the country level, reporting by country.
+</p>
+</li>
+<li><p>&quot;region&quot;: Relative search activity at the country level, reporting by region.
+</p>
+</li>
+<li><p>&quot;city&quot;: Relative search activity at the country level, reporting by city.
+</p>
+</li></ul>
+
+<p>Defaults to 'country_day'.</p>
+</td></tr>
+<tr valign="top"><td><code>countries</code></td>
+<td>
+<p>A character vector of ISO3c country codes that you want
+to pull detailed data for. By default (<code>countries = NULL</code>) the
+code pulls detailed data for all countries the the global Google Trend
+request returns.</p>
+</td></tr>
+<tr valign="top"><td><code>low_search_volume</code></td>
+<td>
+<p>Whether you want the include countries with low
+search volume. This increases the list of countries that are pulled
+considerably and also the risk that you hit a Google Trend search limit.
+Use with care. Defaults to <code>FALSE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>pause</code></td>
+<td>
+<p>Whether you want the code to pause for a 2 to 5 seconds period
+between Google Trend API calls. As Google Trends has an unknown rate
+limit, this is probably a good idea and thus defaults to <code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+<p>Whether you want the function to send some status messages to
+the console. Might be informative as downloading will take some time
+and thus defaults to <code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>cached</code></td>
+<td>
+<p>Whether you want to download the cached version of the data
+from the tidycovid19 Github repository instead of retrieving the
+data from the authorative source. Downloading the cached version is
+faster and the cache is updated daily. Defaults to <code>FALSE</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Uses the <code>gtrendsR</code> package. Please note that Google Trends
+only reports relative search volume. For each data frame, the values
+are standardized so that the observations with the highest search volume
+gets a score of 100 and the other scores of the data frame are relative
+to that. This implies that comparisons across data frames are not
+feasible. When Google Trends reports a score of &quot;&lt;1&quot; this is
+translated to 0.5 in the data.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If only one <code>type</code> was selected, a data frame containing the
+data. Otherwise, a list containing the desired data frames ordered as
+in <code>type</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+df &lt;- download_google_trends_data(type = "country", silent = TRUE, cached = TRUE)
+df %&gt;%
+  dplyr::select(iso3c, gtrends_score) %&gt;%
+  dplyr::arrange(-gtrends_score)
+
+lst &lt;- download_google_trends_data(type = c("region", "city"), silent = TRUE, cached = TRUE)
+lst[[1]] %&gt;%
+  dplyr::filter(iso3c == "DEU") %&gt;%
+  dplyr::select(region, gtrends_score) %&gt;%
+  dplyr::arrange(-gtrends_score)
+
+lst[[2]] %&gt;%
+  dplyr::filter(iso3c == "DEU") %&gt;%
+  dplyr::select(city, gtrends_score) %&gt;%
+  dplyr::arrange(-gtrends_score)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>tidycovid19</em> version 0.0.0.9000 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

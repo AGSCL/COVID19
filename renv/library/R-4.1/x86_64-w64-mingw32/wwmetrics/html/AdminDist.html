@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: AdminDist</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for AdminDist {wwmetrics}"><tr><td>AdminDist {wwmetrics}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>AdminDist</h2>
+
+<h3>Description</h3>
+
+<p>Data on Administrative distances based on the Worldwide Governance Indicators by the World Bank.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+data("AdminDist")
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A tibble with 786 173 observations and 12 variables:
+</p>
+
+<ul>
+<li><p> ID. Factor indicating the countries forming each country pair (ISO3 code) and the year.
+</p>
+</li>
+<li><p> year. Integer indicating the year.
+</p>
+</li>
+<li><p> CountryPair. Factor indicating the country pair (ISO3 code).
+</p>
+</li>
+<li><p> origin. Factor indicating the first country (ISO3 code) of the country pair.
+</p>
+</li>
+<li><p> destination. Factor indicating the second country (ISO3 code) of the country pair.
+</p>
+</li>
+<li><p> AdminDist. Numeric. Administrative distance as the difference in the average of the scores obtained on the six following Worldwide Governance Indicators.
+</p>
+</li>
+<li><p> diffr_in_Control_of_corruption. Numeric. Difference in the score the World Bank granted the origin country and the destination country for each year on the indicator Control of Corruption.
+</p>
+</li>
+<li><p> diffr_in_Government_effectiveness. Numeric. Difference in the score the World Bank granted the origin country and the destination country for each year on the indicator Government Effectiveness.
+</p>
+</li>
+<li><p> diffr_in_Political_stability_and_absence_of_violence_terrorism. Numeric. Difference in the score the World Bank granted the origin country and the destination country for each year on the indicator Political Stability and Absence of Violence and Terrorism.
+</p>
+</li>
+<li><p> diffr_in_Regulatory_quality. Numeric. Difference in the score the World Bank granted the origin country and the destination country for each year on the indicator Regulatory Quality.
+</p>
+</li>
+<li><p> diffr_in_Rule_of_law. Numeric. Difference in the score the World Bank granted the origin country and the destination country for each year on the indicator Rule of Law.
+</p>
+</li>
+<li><p> diffr_in_Voice_and_accountability. Numeric. Difference in the score the World Bank granted the origin country and the destination country for each year on the indicator Voice and Accountability.
+</p>
+</li></ul>
+
+
+<h3>Source</h3>
+
+<p><a href="https://datacatalog.worldbank.org/dataset/worldwide-governance-indicators">https://datacatalog.worldbank.org/dataset/worldwide-governance-indicators</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Worldwide Governance Indicators (www.govindicators.org)
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>wwmetrics</em> version 0.1.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,7 @@
+as.partial	as.partial
+enlarge_plot	enlarge_plot
+knit_child_debug	knit_child_debug
+partial	partial
+paste.knit_asis	paste.knit_asis
+print.knit_asis	print.knit_asis
+regression_diagnostics	regression_diagnostics

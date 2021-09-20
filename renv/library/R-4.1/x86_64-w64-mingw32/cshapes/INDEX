@@ -1,0 +1,4 @@
+cshp                    Access the CShapes dataset in R
+distlist                Compute distance lists on the CShapes dataset
+distmatrix              Generate between-country distance matrix on the
+                        CShapes dataset

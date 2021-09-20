@@ -1,0 +1,33 @@
+SPECS                   List of Available X-13ARIMA-SEATS Outputs
+as.data.frame.seas      Coerce Output to 'data.frame'
+checkX13                Check Installation of X-13ARIMA-SEATS
+cpi                     Consumer Price Index of Switzerland
+easter                  Dates of Chinese New Year, Indian Diwali and
+                        Easter
+exp                     Exports and Imports of China
+final                   Time Series of a Seasonal Adjustment Model
+fivebestmdl             Five Best ARIMA Models
+genhol                  Generate Holiday Regression Variables
+identify.seas           Manually Identify Outliers
+iip                     Industrial Production of India
+import.spc              Import X-13 '.spc' Files
+import.ts               Import Time Series from X-13 Data Files
+na.x13                  Handle Missing Values by X-13
+out                     Display X-13ARIMA-SEATS Output
+outlier                 Outlier Time series
+plot.seas               Seasonal Adjustment Plots
+predict.seas            Seasonal Adjusted Series
+seas                    Seasonal Adjustment with X-13ARIMA-SEATS
+seasonal-package        seasonal: R interface to X-13ARIMA-SEATS
+series                  Import X-13ARIMA-SEATS Output Tables
+spc                     '.spc' File Content
+static                  Static Call of a seas Object
+summary.seas            Summary of a X13-ARIMA-SEATS seasonal
+                        adjustment
+transformfunction       Applied Transformation
+udg                     Diagnostical Statistics
+unemp                   United States Unemployment Level
+update.seas             Update and Re-evaluate a Seasonal Adjustment
+                        Model
+view                    Interactively Modify a Seasonal Adjustment
+                        Model

@@ -1,0 +1,46 @@
+MathAnxiety             Pre-summarized results from an administration
+                        of the Math Anxiety Scale Survey.
+MathAnxietyGender       Pre-summarized results from an administration
+                        of the Math Anxiety Scale Survey grouped by
+                        gender.
+abs_formatter           Absolute value formatter for continuous_scale
+align.plots             Adapted from ggExtra package which is no longer
+                        available. This is related to an experimental
+                        mlpsa plot that will combine the circular plot
+                        along with the two individual distributions.
+gap                     Fictitious dataset with importance and
+                        satisfaction results across five different
+                        offices.
+label_wrap_mod          Wrap label text.
+likert                  Analyze Likert type items.
+likert-package          Likert Analysis and Visualization
+likert.bar.plot         Bar Plot for Likert Items.
+likert.density.plot     Creates a density plot for likert items.
+likert.heat.plot        Internal method.
+likert.histogram.plot   Histogram of number of responses.
+likert.matrix.plot      Matrix plot (experimental)
+likert.options          Builds an object with options for plotting
+                        'likert' results.
+mass                    Results from an administration of the Math
+                        Anxiety Scale Survey.
+pisaitems               Programme of International Student Assessment
+plot.likert             Plots a set of likert items.
+plot.likert.gap         Plots a set of likert items.
+print.likert            Prints results table.
+print.likert.bar.plot   Print method for 'likert.bar.plot'. The primary
+                        purpose is to suppress the "Stacking not well
+                        defined when ymin != 0" warning printed by
+                        'ggplot2' for bar plots that have negative bars
+                        (i.e. the centered plots).
+print.likert.gap        Prints results table.
+print.likert.heat.plot
+                        Print method for 'likert.heat.plot'.
+print.xlikert           Prints the results of 'xtable.likert'.
+recode                  Recode a vector.
+reverse.levels          Reverse the levels of a factor.
+sasr                    Results from the Survey of Academic
+                        Self-Regulation (SASR).
+shinyLikert             Shiny App for the likert package.
+summary.likert          Prints summary table of a Likert analysis.
+summary.likert.gap      Prints summary table of a Likert analysis.
+xtable.likert           Prints a LaTeX table of the likert items.

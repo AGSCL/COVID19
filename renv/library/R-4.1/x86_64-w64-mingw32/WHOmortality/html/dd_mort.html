@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: WHO Mortality Data Dictionary</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dd_mort {WHOmortality}"><tr><td>dd_mort {WHOmortality}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>WHO Mortality Data Dictionary</h2>
+
+<h3>Description</h3>
+
+<p>Data dictionary for the mortality raw files extracted from the 
+documentation Word document &quot;Documentation_1May2019.doc&quot;
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+data(dd_mort)
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A <code>data.frame</code> object containing the column names and descriptions
+for the mortality data tables &quot;Morticd10_part1&quot; and &quot;Morticd10_part2&quot;
+</p>
+
+<dl>
+<dt>column_name</dt><dd><p>the column name used for the WHO mortality table</p>
+</dd>
+<dt>content</dt><dd><p>the description of the column name</p>
+</dd>
+<dt>type</dt><dd><p>expected data type for the column</p>
+</dd>
+</dl>
+
+
+<h3>Source</h3>
+
+<p><a href="https://www.who.int/healthinfo/statistics/mortality_rawdata/en/">WHO Mortality Database</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(dd_mort)
+head(dd_mort)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>WHOmortality</em> version 0.0.0.9 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

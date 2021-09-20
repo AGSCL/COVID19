@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download Johns Hopkins University CSSE data on Covid-19</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for download_jhu_csse_covid19_data {tidycovid19}"><tr><td>download_jhu_csse_covid19_data {tidycovid19}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download Johns Hopkins University CSSE data on Covid-19</h2>
+
+<h3>Description</h3>
+
+<p>Downloads Johns Hopkins University CSSE data on the spread of the
+SARS-CoV-2 virus and the Covid-19 pandemic
+(<a href="https://github.com/CSSEGISandData/COVID-19">https://github.com/CSSEGISandData/COVID-19</a>).
+The data for confirmed cases, reported deaths and recoveries are merged into
+one data frame, converted to long format and
+joined with ISO3c (ISO 3166-1 alpha-3) country codes based on the
+<a href="../../countrycode/html/countrycode.html">countrycode</a> package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+download_jhu_csse_covid19_data(
+  type = "country",
+  silent = FALSE,
+  cached = FALSE
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>The type of data that you want to retrieve. Can be any subset of
+</p>
+
+<ul>
+<li><p>&quot;country&quot;: Data at the country level (the default).
+</p>
+</li>
+<li><p>&quot;country_region&quot;: Data at the country region level (only available for Australia, Canada, China and some oversea areas).
+</p>
+</li>
+<li><p>&quot;us_county&quot;: Data at the U.S. county level.
+</p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+<p>Whether you want the function to send some status messages to
+the console. Might be informative as downloading will take some time
+and thus defaults to <code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>cached</code></td>
+<td>
+<p>Whether you want to download the cached version of the data
+from the tidycovid19 Github repository instead of retrieving the
+data from the authorative source. Downloading the cached version is
+faster and the cache is updated daily. Defaults to <code>FALSE</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>If only one <code>type</code> was selected, a data frame containing the
+data. Otherwise, a list containing the desired data frames ordered as
+in <code>type</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+df &lt;- download_jhu_csse_covid19_data(silent = TRUE, cached = TRUE)
+df %&gt;%
+  dplyr::group_by(country) %&gt;%
+  dplyr::summarise(confirmed_cases = max(confirmed, na.rm = TRUE)) %&gt;%
+  dplyr::arrange(-confirmed_cases) %&gt;%
+  dplyr::top_n(10)
+
+df &lt;- download_jhu_csse_covid19_data(
+  type = "us_county", silent = TRUE, cached = TRUE
+)
+df %&gt;%
+  dplyr::filter(!is.na(state)) %&gt;%
+  dplyr::group_by(state) %&gt;%
+  dplyr::summarise(deaths = max(deaths, na.rm = TRUE)) %&gt;%
+  dplyr::arrange(-deaths) %&gt;%
+  dplyr::top_n(10)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>tidycovid19</em> version 0.0.0.9000 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

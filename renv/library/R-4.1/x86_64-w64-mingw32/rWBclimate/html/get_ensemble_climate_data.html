@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download ensemble climate data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for get_ensemble_climate_data {rWBclimate}"><tr><td>get_ensemble_climate_data {rWBclimate}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download ensemble climate data</h2>
+
+<h3>Description</h3>
+
+<p>Download ensemble data for all models, returns the 10th, 50th and 90th
+percentile of all models (15 for A1, 13 for B2).  Ensemble requets can be for
+countries or basins.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+get_ensemble_climate_data(locator, geo_type, type, cvar, start, end)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>locator</code></td>
+<td>
+<p>The ISO3 country code that you want data about.
+(http://unstats.un.org/unsd/methods/m49/m49alpha.htm) or the basin ID [1-468]</p>
+</td></tr>
+<tr valign="top"><td><code>geo_type</code></td>
+<td>
+<p>basin or country depending on the locator type</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>the type of data you want &quot;mavg&quot; for monthly averages, &quot;annualavg&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>cvar</code></td>
+<td>
+<p>The variable you're interested in. &quot;pr&quot; for precipitation, &quot;tas&quot; for
+temperature in celcius.</p>
+</td></tr>
+<tr valign="top"><td><code>start</code></td>
+<td>
+<p>The starting year you want data for, can be in the past or the future.
+Must conform to the periods outlined in the world bank API.  If given values don't
+conform to dates, the fuction will automatically round them.</p>
+</td></tr>
+<tr valign="top"><td><code>end</code></td>
+<td>
+<p>The ending year you want data for, can be in the past or the future.
+Similar to the start date, dates will be rounded to the nearest end dat.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>rWBclimate</em> version 0.1.5.91 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

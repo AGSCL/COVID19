@@ -1,0 +1,8 @@
+dd_icd10                ICD-10 Mortality Data Dictionary
+dd_mort                 WHO Mortality Data Dictionary
+dd_pop                  WHO Population Data Dictionary
+download_who            Download WHO Mortality Data
+extract_who             Extract WHO Mortality Data
+import_who              Import WHO Mortality Data
+proc_who_mort           Process Raw WHO Mortality Data
+snakecase_cols          Convert Column Names to Lower Snake Case

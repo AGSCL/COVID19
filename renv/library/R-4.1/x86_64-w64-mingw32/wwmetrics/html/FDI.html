@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Foreign Direct Investment (FDI)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for FDI {wwmetrics}"><tr><td>FDI {wwmetrics}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Foreign Direct Investment (FDI)</h2>
+
+<h3>Description</h3>
+
+<p>Data on foreign direct investment (FDI) for 67871 country pairs from 2001 to 2012 (http://unctad.org/en/Pages/DIAE/FDI
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+data("FDI")
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A tibble with 2 428 512 observations and 6 variables:
+</p>
+
+<ul>
+<li><p> ID. A factor indicating the country pair (ISO3 code) and the year.
+</p>
+</li>
+<li><p> CountryPair. Factor uniting the origin and the destination using &quot;-&quot;.
+</p>
+</li>
+<li><p> year. Integer indicating the year.
+</p>
+</li>
+<li><p> FDI_inflows. Numeric. Defined as &quot;Inward flows represent transactions that increase the investment that foreign investors have in enterprises resident in the reporting economy less transactions that decrease the investment of foreign investors in resident enterprises. FDI flows are measured in USD and as a share of GDP. FDI creates stable and long-lasting links between economies.&quot; (source: https://data.oecd.org/fdi/fdi-flows.htm#indicator-chart)
+</p>
+</li>
+<li><p> FDI_outflows. Numeric. Defined as &quot;Outward flows represent transactions that increase the investment that investors in the reporting economy have in enterprises in a foreign economy, such as through purchases of equity or reinvestment of earnings, less any transactions that decrease the investment that investors in the reporting economy have in enterprises in a foreign economy, such as sales of equity or borrowing by the resident investor from the foreign enterprise.&quot; (source: https://data.oecd.org/fdi/fdi-flows.htm#indicator-chart)
+</p>
+</li>
+<li><p> FDI_instock. Numeric. Defined as &quot;The inward FDI stock is the value of foreign investors' equity in and net loans to enterprises resident in the reporting economy. FDI stocks are measured in USD and as a share of GDP.&quot; (source: https://data.oecd.org/fdi/fdi-stocks.htm)
+</p>
+</li>
+<li><p> FDI_outstock. Numeric. Defined as &quot;The outward FDI stock is the value of the resident investors' equity in and net loans to enterprises in foreign economies.&quot; (source: https://data.oecd.org/fdi/fdi-stocks.htm)
+</p>
+</li></ul>
+
+
+<h3>Source</h3>
+
+<p><a href="http://unctad.org/en/pages/DIAE/DIAE.aspx">http://unctad.org/en/pages/DIAE/DIAE.aspx</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>http://unctad.org/en/Pages/Home.aspx
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>wwmetrics</em> version 0.1.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

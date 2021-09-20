@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>R: n-Gram Text Regression, aka Concise Comparative Summarization</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+<h1> n-Gram Text Regression, aka Concise Comparative Summarization
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;textreg&rsquo; version 0.1.5</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="textreg-package.html">textreg-package</a></td>
+<td>Sparse regression package for text that allows for multiple word phrases.</td></tr>
+<tr><td style="width: 25%;"><a href="bathtub.html">bathtub</a></td>
+<td>Sample of cleaned OSHA accident summaries.</td></tr>
+<tr><td style="width: 25%;"><a href="build.corpus.html">build.corpus</a></td>
+<td>Build a corpus that can be used in the textreg call.</td></tr>
+<tr><td style="width: 25%;"><a href="calc.loss.html">calc.loss</a></td>
+<td>Calculate total loss of model (Squared hinge loss).</td></tr>
+<tr><td style="width: 25%;"><a href="clean.text.html">clean.text</a></td>
+<td>Clean text and get it ready for textreg.</td></tr>
+<tr><td style="width: 25%;"><a href="cluster.phrases.html">cluster.phrases</a></td>
+<td>Cluster phrases based on similarity of appearance.</td></tr>
+<tr><td style="width: 25%;"><a href="convert.tm.to.character.html">convert.tm.to.character</a></td>
+<td>Convert tm corpus to vector of strings.</td></tr>
+<tr><td style="width: 25%;"><a href="cpp_build.corpus.html">cpp_build.corpus</a></td>
+<td>Driver function for the C++ function.</td></tr>
+<tr><td style="width: 25%;"><a href="cpp_textreg.html">cpp_textreg</a></td>
+<td>Driver function for the C++ function.</td></tr>
+<tr><td style="width: 25%;"><a href="dirtyBathtub.html">dirtyBathtub</a></td>
+<td>Sample of raw-text OSHA accident summaries.</td></tr>
+<tr><td style="width: 25%;"><a href="find.CV.C.html">find.CV.C</a></td>
+<td>K-fold cross-validation to determine optimal tuning parameter</td></tr>
+<tr><td style="width: 25%;"><a href="find.threshold.C.html">find.threshold.C</a></td>
+<td>Conduct permutation test on labeling to get null distribution of regularization parameter.</td></tr>
+<tr><td style="width: 25%;"><a href="is.fragment.sample.html">fragment.sample</a></td>
+<td>Is object a fragment.sample object?</td></tr>
+<tr><td style="width: 25%;"><a href="grab.fragments.html">grab.fragments</a></td>
+<td>Grab all fragments in a corpus with given phrase.</td></tr>
+<tr><td style="width: 25%;"><a href="is.fragment.sample.html">is.fragment.sample</a></td>
+<td>Is object a fragment.sample object?</td></tr>
+<tr><td style="width: 25%;"><a href="is.textreg.corpus.html">is.textreg.corpus</a></td>
+<td>Is object a textreg.corpus object?</td></tr>
+<tr><td style="width: 25%;"><a href="is.textreg.result.html">is.textreg.result</a></td>
+<td>Is object a textreg.result object?</td></tr>
+<tr><td style="width: 25%;"><a href="list.table.chart.html">list.table.chart</a></td>
+<td>Graphic showing multiple word lists side-by-side.</td></tr>
+<tr><td style="width: 25%;"><a href="make.appearance.matrix.html">make.appearance.matrix</a></td>
+<td>Make phrase appearance matrix from textreg result.</td></tr>
+<tr><td style="width: 25%;"><a href="make.count.table.html">make.count.table</a></td>
+<td>Count number of times documents have a given phrase.</td></tr>
+<tr><td style="width: 25%;"><a href="make.CV.chart.html">make.CV.chart</a></td>
+<td>Plot K-fold cross validation curves</td></tr>
+<tr><td style="width: 25%;"><a href="make.list.table.html">make.list.table</a></td>
+<td>Collate multiple regression runs.</td></tr>
+<tr><td style="width: 25%;"><a href="make.path.matrix.html">make.path.matrix</a></td>
+<td>Generate matrix describing gradient descent path of textreg.</td></tr>
+<tr><td style="width: 25%;"><a href="make.phrase.correlation.chart.html">make.phrase.correlation.chart</a></td>
+<td>Generate visualization of phrase overlap.</td></tr>
+<tr><td style="width: 25%;"><a href="make.phrase.matrix.html">make.phrase.matrix</a></td>
+<td>Make a table of where phrases appear in a corpus</td></tr>
+<tr><td style="width: 25%;"><a href="make.similarity.matrix.html">make.similarity.matrix</a></td>
+<td>Calculate similarity matrix for set of phrases.</td></tr>
+<tr><td style="width: 25%;"><a href="make_search_phrases.html">make_search_phrases</a></td>
+<td>Convert phrases to appropriate search string.</td></tr>
+<tr><td style="width: 25%;"><a href="path.matrix.chart.html">path.matrix.chart</a></td>
+<td>Plot optimization path of textreg.</td></tr>
+<tr><td style="width: 25%;"><a href="phrase.count.html">phrase.count</a></td>
+<td>Count phrase appearance.</td></tr>
+<tr><td style="width: 25%;"><a href="phrase.matrix.html">phrase.matrix</a></td>
+<td>Make matrix of where phrases appear in corpus.</td></tr>
+<tr><td style="width: 25%;"><a href="phrases.html">phrases</a></td>
+<td>Get the phrases from the textreg.result object?</td></tr>
+<tr><td style="width: 25%;"><a href="plot.textreg.result.html">plot.textreg.result</a></td>
+<td>Plot the sequence of features as they are introduced with the textreg gradient descent program.</td></tr>
+<tr><td style="width: 25%;"><a href="predict.textreg.result.html">predict.textreg.result</a></td>
+<td>Predict labeling with the selected phrases.</td></tr>
+<tr><td style="width: 25%;"><a href="print.fragment.sample.html">print.fragment.sample</a></td>
+<td>Pretty print results of phrase sampling object.</td></tr>
+<tr><td style="width: 25%;"><a href="print.textreg.corpus.html">print.textreg.corpus</a></td>
+<td>Pretty print textreg corpus object</td></tr>
+<tr><td style="width: 25%;"><a href="print.textreg.result.html">print.textreg.result</a></td>
+<td>Pretty print results of textreg regression.</td></tr>
+<tr><td style="width: 25%;"><a href="reformat.textreg.model.html">reformat.textreg.model</a></td>
+<td>Clean up output from textreg.</td></tr>
+<tr><td style="width: 25%;"><a href="sample.fragments.html">sample.fragments</a></td>
+<td>Sample fragments of text to contextualize a phrase.</td></tr>
+<tr><td style="width: 25%;"><a href="save.corpus.to.files.html">save.corpus.to.files</a></td>
+<td>Save corpus to text (and RData) file.</td></tr>
+<tr><td style="width: 25%;"><a href="stem.corpus.html">stem.corpus</a></td>
+<td>Step corpus with annotation.</td></tr>
+<tr><td style="width: 25%;"><a href="testCorpora.html">testCorpora</a></td>
+<td>Some small, fake test corpora.</td></tr>
+<tr><td style="width: 25%;"><a href="textreg.html">textreg</a></td>
+<td>Sparse regression of labeling vector onto all phrases in a corpus.</td></tr>
+<tr><td style="width: 25%;"><a href="is.textreg.corpus.html">textreg.corpus</a></td>
+<td>Is object a textreg.corpus object?</td></tr>
+<tr><td style="width: 25%;"><a href="is.textreg.result.html">textreg.result</a></td>
+<td>Is object a textreg.result object?</td></tr>
+<tr><td style="width: 25%;"><a href="tm_gregexpr.html">tm_gregexpr</a></td>
+<td>Call gregexpr on the content of a tm Corpus.</td></tr>
+</table>
+</div></body></html>

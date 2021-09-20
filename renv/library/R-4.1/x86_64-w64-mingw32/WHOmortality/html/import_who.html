@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Import WHO Mortality Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for import_who {WHOmortality}"><tr><td>import_who {WHOmortality}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Import WHO Mortality Data</h2>
+
+<h3>Description</h3>
+
+<p>This function imports the csv WHO mortality files, extracted from downloaded zip files from a local directory
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+import_who(path, data = c("mort", "pop", "ccode", "notes"),
+  proc = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>path</code></td>
+<td>
+<p>a <code>character</code> file path where the extracted .csv WHO files exist</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>a <code>character</code> to specify which files to import into R, must be explicitly defined</p>
+</td></tr>
+<tr valign="top"><td><code>proc</code></td>
+<td>
+<p>a <code>logical</code> to specify whether to automatically modify column <code>class</code> and convert column names to snakecase.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>data</code> parameter allows the user to download a specific set of data files.
+The <code>mort</code> imports the two ICD-10 mortality csv files, &quot;Morticd10_part1.zip&quot; and &quot;Morticd10_part2.zip&quot; and combines them into a single <code>tibble</code> object
+The <code>pop</code> imports the WHO population csv file
+The <code>ccode</code> imports the country code csv file
+The <code>notes</code> imports the notes csv file
+</p>
+<p>Fore more details see the docs for <code><a href="../../WHOmortality/help/proc_who_mort.html">proc_who_mort</a></code> and <code><a href="../../WHOmortality/help/snakecase_cols.html">snakecase_cols</a></code>
+</p>
+
+
+<h3>Value</h3>
+
+<p>a <code>tibble</code> object of the specified data
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+download_who(dest = getwd(), data = "ccode")
+extract_who(path = getwd(), dest = getwd(), convert = TRUE)
+ccode_df &lt;- import_who(path = getwd(), data = "ccode")
+head(ccode_df)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>WHOmortality</em> version 0.0.0.9 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

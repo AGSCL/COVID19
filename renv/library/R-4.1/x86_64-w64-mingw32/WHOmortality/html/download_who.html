@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download WHO Mortality Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for download_who {WHOmortality}"><tr><td>download_who {WHOmortality}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download WHO Mortality Data</h2>
+
+<h3>Description</h3>
+
+<p>This function downloads the raw WHO mortality data based on the links on the webpage <a href="https://www.who.int/healthinfo/statistics/mortality_rawdata/en/">https://www.who.int/healthinfo/statistics/mortality_rawdata/en/</a>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+download_who(dest, data = c("docs", "mort", "pop", "ccode", "all"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>dest</code></td>
+<td>
+<p>a <code>character</code> file path of the destintation directory to download the .zip files</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>to specify which files to download, takes values of &quot;docs&quot;, &quot;mort&quot;, &quot;pop&quot;, &quot;ccode&quot;, &quot;all&quot;. Default value downloads the documentation files</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>data</code> parameter allows the user to download a specific set of data files.
+The <code>docs</code> downloads the documentation files associated with the raw WHO mortality data, this includes the &quot;documentation.zip&quot;, &quot;notes.zip&quot;, and &quot;availability.zip&quot; files
+The <code>mort</code> downloads the two ICD-10 mortality .zip files, &quot;Morticd10_part1.zip&quot; and &quot;Morticd10_part2.zip&quot;
+The <code>pop</code> downloads the WHO population data, &quot;pop.zip&quot;
+The <code>ccode</code> downloads the country code table &quot;country_codes.zip&quot;
+The <code>all</code> downloads all the abovementioned .zip files at once
+</p>
+
+
+<h3>Value</h3>
+
+<p>the same value as the <code><a href="../../utils/help/download.file.html">download.file</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+download_who(dest = getwd(), data = "ccode")
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>WHOmortality</em> version 0.0.0.9 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

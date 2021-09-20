@@ -1,0 +1,41 @@
+importFrom(tidyr,"%>%")
+importFrom("stats", "glm")
+
+# The following is here to make devtools::check() happy
+# as CRAN checks on some systems are complaining:
+#
+# Version: 0.2.0
+# Check: dependencies in R code
+# Result: NOTE
+#    Namespaces in Imports field not imported from:
+#     'CodeDepends' 'DT' 'PKI' 'shinycssloaders' 'tictoc'
+#     All declared Imports should be used.
+#
+# All these package namespaces are used in inst/applications
+# but this seems to be missed by devtools::check()
+# So here goes:
+
+importFrom(DT, datatable)
+importFrom(openssl, sha256)
+importFrom(shinycssloaders, withSpinner)
+importFrom(tictoc, tic)
+importFrom(rio, import)
+importFrom(zip, zip)
+importFrom(rlang, syms)
+
+# Normal export stuff follows
+
+export(ExPanD)
+export(prepare_correlation_graph)
+export(prepare_correlation_table)
+export(prepare_descriptive_table)
+export(prepare_ext_obs_table)
+export(prepare_missing_values_graph)
+export(prepare_quantile_trend_graph)
+export(prepare_by_group_bar_graph)
+export(prepare_by_group_trend_graph)
+export(prepare_by_group_violin_graph)
+export(prepare_regression_table)
+export(prepare_scatter_plot)
+export(prepare_trend_graph)
+export(treat_outliers)

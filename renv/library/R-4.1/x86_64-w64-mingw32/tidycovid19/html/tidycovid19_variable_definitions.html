@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Variable Definitions of 'tidycovid19' Merged Data Frame</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for tidycovid19_variable_definitions {tidycovid19}"><tr><td>tidycovid19_variable_definitions {tidycovid19}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Variable Definitions of <code>tidycovid19</code> Merged Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>List variable definitions and data sources for the data frame
+created by <code>download_merged_data()</code>.
+Merge with <code>data(tidycovid19_data_sources)</code> to get full information
+for each variable, including description of data source and link to URL.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+data(tidycovid19_variable_definitions)
+</pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>"data.frame"</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+vd &lt;- tidycovid19_variable_definitions
+ds &lt;- tidycovid19_data_sources
+data_info &lt;- dplyr::left_join(vd, ds, by = c(var_source = "id"))
+print(data_info)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>tidycovid19</em> version 0.0.0.9000 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

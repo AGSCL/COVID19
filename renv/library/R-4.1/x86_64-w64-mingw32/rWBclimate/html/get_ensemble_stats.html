@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download ensemble statistics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for get_ensemble_stats {rWBclimate}"><tr><td>get_ensemble_stats {rWBclimate}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download ensemble statistics</h2>
+
+<h3>Description</h3>
+
+<p>Statistics can be from either two time periods: 2046 - 2065 and 2081 - 2100 and are all given in units relative to a control period:  1961 - 2000.  Derived statistics can be any of the following:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<strong>Statistic</strong> </td><td style="text-align: left;"> <strong>Description</strong> </td><td style="text-align: left;"> <strong>Units</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<em>tmin_means</em> </td><td style="text-align: left;"> Average daily minimum  temperature </td><td style="text-align: left;"> degrees Celsius </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+<em>tmax_means</em> </td><td style="text-align: left;"> Average daily maximum temperature </td><td style="text-align: left;"> degrees Celsius </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+<em>tmax_days90th</em> </td><td style="text-align: left;"> Number of days with maximum temperature above the control period 90th percentile (hot days) </td><td style="text-align: left;"> days </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<em>tmin_days90th</em> </td><td style="text-align: left;"> Number of days with minimum  temperature above the control period 90th percentile (warm nights) </td><td style="text-align: left;"> days </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<em>tmax_days10th</em> </td><td style="text-align: left;"> Number of days with maximum temperature below the control period 10th percentile (cool days) </td><td style="text-align: left;"> days </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<em>tmin_days10th</em> </td><td style="text-align: left;"> Number of days with minimum  temperature below the control period 10th percentile (cold nights) </td><td style="text-align: left;"> days </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<em>tmin_days0</em> </td><td style="text-align: left;"> Number of days with minimum  temperature below 0 degrees Celsius </td><td style="text-align: left;"> days </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+<em>ppt_days</em> </td><td style="text-align: left;"> Number of days with precipitation greater than 0.2 mm </td><td style="text-align: left;"> days </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+<em>ppt_days2</em> </td><td style="text-align: left;"> Number of days with precipitation greater than 2 mm </td><td style="text-align: left;"> days </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+<em>ppt_days10</em> </td><td style="text-align: left;"> Number of days with precipitation greater than 10 mm </td><td style="text-align: left;"> days </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+<em>ppt_days90th</em> </td><td style="text-align: left;"> Number of days with precipitation greater than the control periods 90th percentile </td><td style="text-align: left;"> days </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+<em>ppt_dryspell</em> </td><td style="text-align: left;"> Average number of days between precipitation events </td><td style="text-align: left;"> days </td>
+</tr>
+<tr>
+ <td style="text-align: left;"> 
+<em>ppt_means</em> </td><td style="text-align: left;"> Average daily precipitation </td><td style="text-align: left;"> mm 
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Usage</h3>
+
+<pre>
+get_ensemble_stats(locator, type, stat)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>locator</code></td>
+<td>
+<p>The ISO3 country code that you want data about. (http://unstats.un.org/unsd/methods/m49/m49alpha.htm) or the basin ID [1-468]</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>the type of data you want &quot;mavg&quot; for monthly averages, &quot;annualavg&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>stat</code></td>
+<td>
+<p>The statistics of interest, must be one of the ones listed above.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+ ### Request data on the US for days of rain over 2 mm
+ ens_dat &lt;- get_ensemble_stats("USA","mavg","ppt_days2")
+ # subset to the 50th percentile and just until the year 2100
+ ens_dat &lt;- subset(ens_dat, ens_dat$percentile == 50)
+ ens_dat &lt;- subset(ens_dat,ens_dat$toYear == 2100)
+ ggplot(ens_dat,aes(x = as.factor(month), y= monthVals, group=scenario, 
+ colour=scenario)) + geom_point() + geom_line()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rWBclimate</em> version 0.1.5.91 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

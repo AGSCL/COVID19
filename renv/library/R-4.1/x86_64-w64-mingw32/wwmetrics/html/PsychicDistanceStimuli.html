@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Psychic distance stimuli (Dow &amp; Karunaratna, 2006)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for PsychicDistanceStimuli {wwmetrics}"><tr><td>PsychicDistanceStimuli {wwmetrics}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Psychic distance stimuli (Dow &amp; Karunaratna, 2006)</h2>
+
+<h3>Description</h3>
+
+<p>Data on the five psychic distance stimuli for 14280 country pairs (120 home countries and 120 host countries).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+data("PsychicDistanceStimuli")
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A tibble with 14280 observations and 31 variables:
+</p>
+
+<ul>
+<li><p> origin. Factor indicating the first country (ISO3 code) of the country pair.
+</p>
+</li>
+<li><p> destination. Factor indicating the second country (ISO3 code) of the country pair.
+</p>
+</li>
+<li><p> CountryPair. Factor uniting the origin and the destination using &quot;-&quot;.
+</p>
+</li>
+<li><p> PDS_Educ_diff_in_pct_lit_adults. Numeric. Measured as the difference in the 
+</p>
+</li>
+<li><p> PDS_Educ_diff_in_pct_stud_2nd_educ. Numeric. Measured as the difference in the 
+</p>
+</li>
+<li><p> PDS_Educ_diff_in_pct_stud_3rd_educ. Numeric. Measured as the difference in the 
+</p>
+</li>
+<li><p> PDS_Levels_of_Education. Numeric. The preceding three indicators have be reduced to a single factor using confirmatory factor analysis (cfa).  This factor score has been estimated using all 14,240 country pairs (i.e. including the imputed values for Serbia and Taiwan).
+</p>
+</li>
+<li><p> PDS_IndDev_diff_GDPcap. Integer. Measured as the difference in US$ GDP per capita between the countries forming the country pair (source: United Nations, Statistical Yearbook, New York, United Nations Statistical Division, 1995.    United Nations, 'Social Indicator data', https://unstats.un.org/unsd/demographic/products/socind/).
+</p>
+</li>
+<li><p> PDS_IndDev_diff_energy_cons. Integer. Measured as the difference in energy consumption (equivalent kg coal pc) between the countries forming the country pair (source: United Nations, Statistical Yearbook, New York, United Nations Statistical Division, 1995.    United Nations, 'Social Indicator data', https://unstats.un.org/unsd/demographic/products/socind/).
+</p>
+</li>
+<li><p> PDS_IndDev_diff_nb_cars. Integer. Measured as the difference in the number of cars per 1,000 people between the countries forming the country pair (source: United Nations, Statistical Yearbook, New York, United Nations Statistical Division, 1995.    United Nations, 'Social Indicator data', https://unstats.un.org/unsd/demographic/products/socind/).
+</p>
+</li>
+<li><p> PDS_IndDev_diff_pct_non_agr_labor. Integer. Measured as the difference in the 
+</p>
+</li>
+<li><p> PDS_IndDev_diff_pct_urban_pop. Integer. Measured as the difference in the 
+</p>
+</li>
+<li><p> PDS_IndDev_diff_nb_daily_newspap. Integer. Measured as the difference in the # of daily newspapers per 1,000 people between the countries forming the country pair (source: United Nations, Statistical Yearbook, New York, United Nations Statistical Division, 1995.    United Nations, 'Social Indicator data', https://unstats.un.org/unsd/demographic/products/socind/).
+</p>
+</li>
+<li><p> PDS_IndDev_diff_nb_radios. Integer. Measured as the difference in the number of radios per 1,000 people between the countries forming the country pair (source: United Nations, Statistical Yearbook, New York, United Nations Statistical Division, 1995.    United Nations, 'Social Indicator data', https://unstats.un.org/unsd/demographic/products/socind/).
+</p>
+</li>
+<li><p> PDS_IndDev_diff_nb_phones. Integer. Measured as the difference in the number of telephones per 100 people between the countries forming the country pair (source: United Nations, Statistical Yearbook, New York, United Nations Statistical Division, 1995.    United Nations, 'Social Indicator data', https://unstats.un.org/unsd/demographic/products/socind/).
+</p>
+</li>
+<li><p> PDS_IndDev_diff_nb_tv. Integer. Measured as the difference in the number of televisions per 1,000 people between the countries forming the country pair (source: United Nations, Statistical Yearbook, New York, United Nations Statistical Division, 1995.    United Nations, 'Social Indicator data', https://unstats.un.org/unsd/demographic/products/socind/).
+</p>
+</li>
+<li><p> PDS_Levels_of_Industrial_Development. Numeric. The preceding nine indicators have be reduced to a single factor using confirmatory factor analysis (cfa). (for more details: https://sites.google.com/site/ddowresearch/home/scales/industrial-development).
+</p>
+</li>
+<li><p> PDS_Lng_diff_btw_dominant_lng. Integer. Measured on a 5-point scale which quantifies the difference between the dominant languages of the countries forming the country pair (primary source: Gordon, R. G. (ed), Ethnologue: Languages of the World, 2005).
+</p>
+</li>
+<li><p> PDS_Lng_incidence_dom_lng_cnt1_in_cnt2. Integer. Measured on a 5 point scale based on the incidence of the origin country's dominant language(s) in the destination country of each country pair (primary source: Gordon, R. G. (ed), Ethnologue: Languages of the World, 2005).
+</p>
+</li>
+<li><p> PDS_Lng_incidence_dom_lng_cnt2_in_cnt1. Integer. Measured on a 5 point scale based on the incidence of the destination country's dominant language(s) in the origin country of each country pair (primary source: Gordon, R. G. (ed), Ethnologue: Languages of the World, 2005).
+</p>
+</li>
+<li><p> PDS_Languages. Numeric. The preceding three indicators have be reduced to a single factor using confirmatory factor analysis (cfa). (for more details: https://sites.google.com/site/ddowresearch/home/scales/languages).
+</p>
+</li>
+<li><p> PDS_PolSys_diff_POLCONV. Numeric. Measured as the difference in the POLCON V scale between the countries forming the country pair (primary source: https://mgmt.wharton.upenn.edu/faculty/heniszpolcon/polcondataset/).
+</p>
+</li>
+<li><p> PDS_PolSys_diff_POLITYIV. Numeric. Measured as the difference in the Modified POLITY IV scale between the countries forming the country pair (primary source: http://www.systemicpeace.org/inscrdata.html).
+</p>
+</li>
+<li><p> PDS_PolSys_diff_Political_rights. Numeric. Measured as the difference in the Freedom House Political Rights scale between the countries forming the country pair (primary source: https://freedomhouse.org/report-types/freedom-world).
+</p>
+</li>
+<li><p> PDS_PolSys_diff_Civil_Liberties. Numeric. Measured as the difference in the Freedom House Civil Liberties scale between the countries forming the country pair (primary source: https://freedomhouse.org/report-types/freedom-world).
+</p>
+</li>
+<li><p> PDS_Pol_dem. Numeric. The preceding four democracy indicators have be reduced to a single factor using confirmatory factor analysis (cfa). (for more details: https://sites.google.com/site/ddowresearch/home/scales/democracy).
+</p>
+</li>
+<li><p> PDS_Pol_soc. Numeric. Measured as the difference in Beck's Political Ideology scale between the countries forming the country pair (primary source: Beck, T., Clarke, G., et al. (2001) 'New Tools in Comparative Political Economy: The Database of Political Institutions', World Bank Economic Review 15(1): 165-176.).
+</p>
+</li>
+<li><p> PDS_Relig_diff_btw_dominant_Relig. Integer. Measured on a 5 point scale which quantifies the difference between the dominant religions of each country forming the country pair. (primary source: Barrett, D. B., World Christian Encyclopedia, 1982    CIA Factbook, 2002).
+</p>
+</li>
+<li><p> PDS_Relig_incidence_dom_Relig_cnt1_in_cnt2. Integer. Measured on a 5 point scale based on the incidence of the origin country's dominant religion(s) in the destination country of each country pair. (primary source: Barrett, D. B., World Christian Encyclopedia, 1982    CIA Factbook, 2002).
+</p>
+</li>
+<li><p> PDS_Relig_incidence_dom_Relig_cnt2_in_cnt1. Integer. Measured on a 5 point scale based on the incidence of the destination country's dominant religion(s) in the origin country of each country pair. (primary source: Barrett, D. B., World Christian Encyclopedia, 1982    CIA Factbook, 2002).
+</p>
+</li>
+<li><p> PDS_Religions. Numeric. The preceding three indicators have be reduced to a single factor using confirmatory factor analysis (cfa). (for more details: https://sites.google.com/site/ddowresearch/home/scales/religion).
+</p>
+</li></ul>
+
+
+<h3>Source</h3>
+
+<p><a href="https://sites.google.com/site/ddowresearch/home/scales">https://sites.google.com/site/ddowresearch/home/scales</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Dow, D. – Karunaratna, A. (2006): Developing a Multidimensional Instrument to Measure Psychic Distance Stimuli. Journal of International Business Studies, 37, No. 5, pp. 575 – 577
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>wwmetrics</em> version 0.1.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

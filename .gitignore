@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+*.RData
+.Ruserdata
+*.xlsx
+Morticd10_part*
+TemperaturesGRIDdata*
+TemperatureGRID/TemperaturesGRIDdata*
+try_datasets_merge_wb_weather.R
+weather.csv
+merged_data_proj_post_ago.RData

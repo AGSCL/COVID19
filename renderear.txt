@@ -1,0 +1,7 @@
+git lfs track Morticd10_part2
+git lfs track Morticd10_part1
+git lfs track TemperaturesGRIDdata.zip
+git lfs track TemperatureGRID/TemperaturesGRIDdata.zip
+git lfs track “Morticd10_part2”
+git lfs track “Morticd10_part1”
+git lfs track “TemperatureGRID/TemperaturesGRIDdata.zip”

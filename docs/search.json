@@ -1,0 +1,21 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "About this site",
+      "description": "Some additional details about the website",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-09-07T00:52:37-03:00"
+    },
+    {
+      "path": "index.html",
+      "title": "&quot;COVID-19 attributed mortality and ambient temperature: A global ecological study using a two-stage regression model",
+      "description": "Welcome to the website. I hope you enjoy it!\n",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-09-07T00:52:40-03:00"
+    }
+  ],
+  "collections": []
+}

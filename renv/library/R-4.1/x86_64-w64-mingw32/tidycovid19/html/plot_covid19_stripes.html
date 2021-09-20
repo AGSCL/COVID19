@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Covid-19 Stripes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot_covid19_stripes {tidycovid19}"><tr><td>plot_covid19_stripes {tidycovid19}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot Covid-19 Stripes</h2>
+
+<h3>Description</h3>
+
+<p>Provides a flexible visualization of the country-level Covid-19 spread,
+plotted by colored daily lines to generate a stripes display. Uses data
+from the Johns Hopkins University CSSE team
+(<a href="https://github.com/CSSEGISandData/COVID-19">https://github.com/CSSEGISandData/COVID-19</a>) and the World Bank
+(<a href="https://data.worldbank.org">https://data.worldbank.org</a>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plot_covid19_stripes(
+  data = download_merged_data(cached = TRUE, silent = TRUE),
+  type = "deaths",
+  min_cases = ifelse(per_capita, ifelse(type == "deaths", 5, 50), ifelse(type ==
+    "deaths", 1000, 10000)),
+  cumulative = FALSE,
+  change_ave = 7,
+  per_capita = FALSE,
+  population_cutoff = 0,
+  diverging_color_scale = FALSE,
+  countries = NULL,
+  sort_countries = NULL,
+  data_date_str = format(lubridate::as_date(data$timestamp[1]), "%B %d, %Y")
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>The data frame to base the plot on. Should be a merged data
+frame obtained by <a href="../../tidycovid19/help/download_merged_data.html">download_merged_data</a> and defaults to
+<code>download_merged_data(cached = TRUE, silent = TRUE)</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>The statistic that you want to plot. Needs to be either
+&quot;confirmed&quot;, &quot;deaths&quot;, &quot;recovered&quot; or &quot;active&quot;, defined as the difference
+of &quot;confirmed&quot;, &quot;deaths&quot; and &quot;recovered&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>min_cases</code></td>
+<td>
+<p>Only countries that have a maximum of <code>type</code> cases higher
+than <code>min_cases</code> during the data period are included in the plot.
+Uses reasonable defaults depending on <code>type</code> and
+<code>per_capita</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>cumulative</code></td>
+<td>
+<p>If <code>TRUE</code>, data is being plotted as
+cumulative (showing the total figures). If <code>FALSE</code>, (the default)
+(averaged) daily changes are plotted instead. See <code>change_ave</code>
+to set the averaging window.</p>
+</td></tr>
+<tr valign="top"><td><code>change_ave</code></td>
+<td>
+<p>Number of days to average over when you plot daily changes.</p>
+</td></tr>
+<tr valign="top"><td><code>per_capita</code></td>
+<td>
+<p>If <code>TRUE</code> data is being plotted as per capita measure
+based on World Bank data. Defaults to <code>FALSE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>population_cutoff</code></td>
+<td>
+<p>Do you want to restrict the plot to countries that
+exceed a certain population cutoff? Takes a value in millions and
+defaults to 0. Useful for per capita displays.</p>
+</td></tr>
+<tr valign="top"><td><code>diverging_color_scale</code></td>
+<td>
+<p>Should be set to <code>TRUE</code> when a <code>type</code>
+is chosen that can have meaningful negative values (this is the case
+for &quot;active&quot; cases). Defaults to <code>FALSE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>countries</code></td>
+<td>
+<p>A character vector of ISO3c (ISO 3166-1 alpha-3) codes that
+you want to include. Note that including many countries can lead to
+long plotting times and might cause the plot to fail rendering when
+the display is to small.</p>
+</td></tr>
+<tr valign="top"><td><code>sort_countries</code></td>
+<td>
+<p>By default, countries are sorted alphabetically by
+ISO3c code. &quot;start&quot; will sort countries by when they first exceeded
+<code>min_cases</code>. &quot;magnitude&quot; will sort by decreasing maximum value
+for <code>type</code>. &quot;countries&quot; requires <code>countries</code> to be set and
+sorts the display in the order of the ISO3c codes provided.
+Alternatively, you can recode the <code>iso3c</code> in
+your data to a factor in the ordering that you prefer. See examples
+below.</p>
+</td></tr>
+<tr valign="top"><td><code>data_date_str</code></td>
+<td>
+<p>A date string to include in the annotation of the plot
+giving the time when the data was pulled. Defaults to the timestamp of the
+data. Note that you might run into issues with the default when running
+this in a non-english locale. Consider setting it by hand then.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <code><a href="../../ggplot2/help/ggplot2.html">ggplot2</a></code> oobject.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+plot_covid19_stripes()
+
+merged &lt;- download_merged_data(cached = TRUE, silent = TRUE)
+plot_covid19_stripes(merged, per_capita = TRUE, population_cutoff = 10)
+
+plot_covid19_stripes(merged,
+  countries = c("ITA", "ESP", "FRA", "DEU", "USA"),
+  sort_countries = "countries"
+)
+
+sortdf &lt;- dplyr::tibble(
+  iso3c = unique(merged$iso3c),
+  continent = countrycode::countrycode(iso3c, "iso3c", "continent")
+) %&gt;% dplyr::arrange(continent, iso3c)
+df &lt;- merged
+df$iso3c &lt;- factor(merged$iso3c, sortdf$iso3c)
+plot_covid19_stripes(df, type = "confirmed")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>tidycovid19</em> version 0.0.0.9000 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

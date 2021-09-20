@@ -1,0 +1,56 @@
+%\VignetteIndexEntry{Examples of likert Tables}
+%\VignetteKeyword{likert xtable}
+
+\documentclass[12pt]{article}
+
+\usepackage[margin=1.0in]{geometry}
+\usepackage[english]{babel}
+\usepackage{rotating}
+\usepackage{pdflscape}
+
+<<setup,echo=FALSE,results=hide>>=
+options(digits=3)
+options(width=80)
+options(continue="  ")
+@
+
+\begin{document}
+\begin{landscape}
+
+\setkeys{Gin}{width=\textwidth}
+
+<<>>=
+library(likert)
+library(ggplot2)
+data(pisaitems)
+
+##### Item 24: Reading Attitudes
+items24 <- pisaitems[,substr(names(pisaitems), 1,5) == 'ST24Q']
+names(items24) <- c(
+	  "I read only if I have to.",
+	  "Reading is one of my favorite hobbies.",
+	  "I like talking about books with other people.",
+	  "I find it hard to finish books.",
+	  "I feel happy if I receive a book as a present.",
+	  "For me, reading is a waste of time.",
+	  "I enjoy going to a bookstore or a library.",
+	  "I read only to get information that I need.",
+	  "I cannot sit still and read for more than a few minutes.",
+	  "I like to express my opinions about books I have read.",
+	  "I like to exchange books with my friends.")
+l24 = likert(items24)
+l24g <- likert(items24, grouping=pisaitems$CNT)
+@
+
+\clearpage
+
+<<results=tex>>=
+xtable(l24)
+@
+
+<<results=tex,eval=FALSE,echo=FALSE>>=
+xtable(l24g)
+@
+
+\end{landscape}
+\end{document}

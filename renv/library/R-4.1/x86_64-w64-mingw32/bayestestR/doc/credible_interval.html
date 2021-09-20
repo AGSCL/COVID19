@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Credible Intervals (CI)</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Credible Intervals (CI)</h1>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#what-is-a-credible-interval">What is a <em>Credible</em> Interval?</a></li>
+<li><a href="#vs.-95-ci">89% vs. 95% CI</a></li>
+<li><a href="#different-types-of-cis">Different types of CIs</a></li>
+<li><a href="#the-support-interval">The Support Interval</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<p>This vignette can be referred to by citing the package:</p>
+<ul>
+<li>Makowski, D., Ben-Shachar, M. S., &amp; Lüdecke, D. (2019). <em>bayestestR: Describing Effects and their Uncertainty, Existence and Significance within the Bayesian Framework</em>. Journal of Open Source Software, 4(40), 1541. <a href="https://doi.org/10.21105/joss.01541" class="uri">https://doi.org/10.21105/joss.01541</a></li>
+</ul>
+<hr />
+<div id="what-is-a-credible-interval" class="section level1">
+<h1>What is a <em>Credible</em> Interval?</h1>
+<p>Credible intervals are an important concept in Bayesian statistics. Its core purpose is to describe and summarise <strong>the uncertainty</strong> related to the unknown parameters you are trying to estimate. In this regard, it could appear as quite similar to the frequentist <strong>Confidence Intervals</strong>. However, while their goal is similar, <strong>their statistical definition and meaning is very different</strong>. Indeed, while the latter is obtained through a complex algorithm full of rarely-tested assumptions and approximations, the credible intervals are fairly straightforward to compute.</p>
+<p>As the Bayesian inference returns a <strong>distribution</strong> of possible effect values (the posterior), the credible interval is just the range containing a particular percentage of probable values. For instance, the 95% credible interval is simply the central portion of the posterior distribution that contains 95% of the values.</p>
+<p>Note how this drastically improve the interpretability of the Bayesian interval compared to the frequentist one. Indeed, the Bayesian framework allows us to say <em>“given the observed data, the effect has 95% probability of falling within this range”</em>, compared to the less straightforward, frequentist alternative (the 95% <strong>Confidence* Interval</strong>) would be “<em>there is a 95% probability that when computing a confidence interval from data of this sort, the effect falls within this range</em>.”</p>
+</div>
+<div id="vs.-95-ci" class="section level1">
+<h1>89% vs. 95% CI</h1>
+<p>Using 89% is another popular choice, and used to be the default for a long time (<a href="https://github.com/easystats/bayestestR/discussions/250">read here the story of the change</a>). How did it start?</p>
+<p>Naturally, when it came about choosing the CI level to report by default, <strong>people started using 95%</strong>, the arbitrary convention used in the <strong>frequentist</strong> world. However, some authors suggested that 95% might not be the most appropriate for Bayesian posterior distributions, potentially lacking stability if not enough posterior samples are drawn <span class="citation">(Kruschke, 2014)</span>.</p>
+<p>The proposition was to use 90% instead of 95%. However, recently, McElreath (2014, 2018) suggested that if we were to use arbitrary thresholds in the first place, why not use 89%? Moreover, 89 is the highest <strong>prime number</strong> that does not exceed the already unstable 95% threshold. What does it have to do with anything? <em>Nothing</em>, but it reminds us of the total arbitrariness of these conventions <span class="citation">(McElreath, 2018)</span>.</p>
+<p>Thus, CIs computed with 89% intervals (<code>ci = 0.89</code>), are deemed to be more stable than, for instance, 95% intervals <span class="citation">(Kruschke, 2014)</span>. An effective sample size (ESS; see <a href="https://easystats.github.io/bayestestR/reference/diagnostic_posterior.html">here</a>) of at least 10.000 is recommended if one wants to compute precise 95% intervals (Kruschke, 2014, p. 183ff). Unfortunately, the default number of posterior samples for most Bayes packages (e.g., <code>rstanarm</code> or <code>brms</code>) is only 4.000 (thus, you might want to increase it when fitting your model).</p>
+<p>However, 95% has some <a href="https://easystats.github.io/blog/posts/bayestestr_95/"><strong>advantages too</strong></a>. For instance, it shares (in the case of a normal posterior distribution) an intuitive relationship with the standard deviation and it conveys a more accurate image of the (artificial) bounds of the distribution. Also, because it is wider, it makes analyses more conservative (i.e., the probability of covering 0 is larger for the 95% CI than for lower ranges such as 89%), which is a good thing in the context of the reproducibility crisis.</p>
+<p>To add to the mess, some other software use different default, such as for instance 90%. Ultimately, <strong>you as the user should make an informed decision</strong>, based on your needs and goals, and justify your choice.</p>
+</div>
+<div id="different-types-of-cis" class="section level1">
+<h1>Different types of CIs</h1>
+<p>The reader might notice that <code>bayestestR</code> provides <strong>two methods</strong> to compute credible intervals, the <strong>Highest Density Interval (HDI)</strong> (<code>hdi()</code>) and the <strong>Equal-tailed Interval (ETI)</strong> (<code>eti()</code>). These methods can also be changed via the <code>method</code> argument of the <code>ci()</code> function. What is the difference? Let’s see:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayestestR)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a normal distribution</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> <span class="fu">distribution_normal</span>(<span class="dv">1000</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute HDI and ETI</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ci_hdi <span class="ot">&lt;-</span> <span class="fu">ci</span>(posterior, <span class="at">method =</span> <span class="st">&quot;HDI&quot;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ci_eti <span class="ot">&lt;-</span> <span class="fu">ci</span>(posterior, <span class="at">method =</span> <span class="st">&quot;ETI&quot;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the distribution and add the limits of the two CIs</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>posterior <span class="sc">%&gt;%</span> </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_density</span>(<span class="at">extend=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># HDI in blue</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_hdi<span class="sc">$</span>CI_low, <span class="at">color =</span> <span class="st">&quot;royalblue&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_hdi<span class="sc">$</span>CI_high, <span class="at">color =</span> <span class="st">&quot;royalblue&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Quantile in red</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_eti<span class="sc">$</span>CI_low, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_eti<span class="sc">$</span>CI_high, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<blockquote>
+<p><strong>These are exactly the same…</strong></p>
+</blockquote>
+<p>But is it also the case for other types of distributions?</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a beta distribution</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> <span class="fu">distribution_beta</span>(<span class="dv">1000</span>, <span class="dv">6</span>, <span class="dv">2</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute HDI and Quantile CI</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ci_hdi <span class="ot">&lt;-</span> <span class="fu">ci</span>(posterior, <span class="at">method =</span> <span class="st">&quot;HDI&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>ci_eti <span class="ot">&lt;-</span> <span class="fu">ci</span>(posterior, <span class="at">method =</span> <span class="st">&quot;ETI&quot;</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the distribution and add the limits of the two CIs</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>posterior <span class="sc">%&gt;%</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_density</span>(<span class="at">extend =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># HDI in blue</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_hdi<span class="sc">$</span>CI_low, <span class="at">color =</span> <span class="st">&quot;royalblue&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_hdi<span class="sc">$</span>CI_high, <span class="at">color =</span> <span class="st">&quot;royalblue&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ETI in red</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_eti<span class="sc">$</span>CI_low, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> ci_eti<span class="sc">$</span>CI_high, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<blockquote>
+<p><strong>The difference is strong with this one.</strong></p>
+</blockquote>
+<p>Contrary to the <strong>HDI</strong>, for which all points within the interval have a higher probability density than points outside the interval, the <strong>ETI</strong> is <strong>equal-tailed</strong>. This means that a 90% interval has 5% of the distribution on either side of its limits. It indicates the 5th percentile and the 95th percentile. In symmetric distributions, the two methods of computing credible intervals, the ETI and the HDI, return similar results.</p>
+<p>This is not the case for skewed distributions. Indeed, it is possible that parameter values in the ETI have lower credibility (are less probable) than parameter values outside the ETI. This property seems undesirable as a summary of the credible values in a distribution.</p>
+<p>On the other hand, the ETI range does <em>not</em> change when transformations are applied to the distribution (for instance, for log-odds to probabilities transformation): the lower and higher bounds of the transformed distribution will correspond to the transformed lower and higher bounds of the original distribution. On the contrary, applying transformations to the distribution will change the resulting HDI. Thus, for instance, if exponentiated credible intervals are required, it is recommended to calculate the ETI.</p>
+</div>
+<div id="the-support-interval" class="section level1">
+<h1>The Support Interval</h1>
+<p>Unlike the HDI and the ETI, which look at the posterior distribution, the <strong>Support Interval (SI)</strong> provides information regarding the change in the credibility of values from the prior to the posterior - in other words, it indicates which values of a parameter have gained support by the observed data by some factor greater or equal to <em>k</em> <span class="citation">(Wagenmakers, Gronau, Dablander, &amp; Etz, 2018)</span>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">distribution_normal</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> <span class="fu">distribution_normal</span>(<span class="dv">1000</span>, <span class="at">mean =</span> .<span class="dv">5</span>, <span class="at">sd =</span> .<span class="dv">3</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>si_1 <span class="ot">&lt;-</span> <span class="fu">si</span>(posterior, prior, <span class="at">BF =</span> <span class="dv">1</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>si_3 <span class="ot">&lt;-</span> <span class="fu">si</span>(posterior, prior, <span class="at">BF =</span> <span class="dv">3</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The posterior</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> <span class="fu">estimate_density</span>(posterior, <span class="at">extend =</span> <span class="cn">TRUE</span>)) <span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The prior</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> <span class="fu">estimate_density</span>(prior, <span class="at">extend =</span> <span class="cn">TRUE</span>)) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># BF = 1 SI in blue</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> si_1<span class="sc">$</span>CI_low, <span class="at">color =</span> <span class="st">&quot;royalblue&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> si_1<span class="sc">$</span>CI_high, <span class="at">color =</span> <span class="st">&quot;royalblue&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># BF = 3 SI in red</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> si_3<span class="sc">$</span>CI_low, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> si_3<span class="sc">$</span>CI_high, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Between the blue lines are values that received <em>some</em> support by the data (this is a <span class="math inline">\(BF = 1~SI\)</span>), while between the red lines are values that received at least <em>moderate</em> support (<span class="math inline">\(BF = 3~SI\)</span>) by the data.</p>
+<p>From the perspective of the Savage-Dickey Bayes factor, testing against a point null hypothesis for any value within the Support Interval will yield a Bayes factor smaller than 1/<code>BF</code>.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-kruschke2014doing" class="csl-entry">
+Kruschke, J. (2014). <em>Doing bayesian data analysis: A tutorial with r, JAGS, and stan</em>. Academic Press.
+</div>
+<div id="ref-mcelreath2018statistical" class="csl-entry">
+McElreath, R. (2018). <em>Statistical rethinking: A bayesian course with examples in r and stan</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-wagenmakers2018SI" class="csl-entry">
+Wagenmakers, E.-J., Gronau, Q. F., Dablander, F., &amp; Etz, A. (2018). <em>The support interval</em>. <a href="https://doi.org/10.31234/osf.io/zwnxb">https://doi.org/10.31234/osf.io/zwnxb</a>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+---
+title: "COVID-19 attributed mortality and ambient temperature: A global ecological study using a two-stage regression model"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+description: |
+  Repository and steps taken into the construction of the datasets
+site: distill::distill_article
+output_dir: "docs"
+source_url: true
+author:
+  #theme: stylo.css
+  - name: Tapia-Muñoz, T.
+    affiliation: Department of Behavioural Science and Health, Institute of Epidemiology and Health Care, University College London, United Kingdom
+    orcid_id: 0000-0001-9248-1056
+  - name: González-Santa Cruz, A. 
+    affiliation: Society and Health Research Center, Universidad Mayor, Chile. Professor of Quantitative Methodologies, Data Science, Universidad Mayor, Chile
+    orcid_id: 0000-0002-5166-9121
+  - name: Clarke, H. 
+    affiliation: Institute for Global Health, University College London, United Kingdom
+  - name: Morris, W. 
+    affiliation: Institute for Global Health, University College London, United Kingdom
+  - name: Allel, K. 
+    affiliation: Institute for Global Health, University College London, United Kingdom. Millennium Initiative for Collaborative Research in Bacterial Resistance (MICROB-R), Chile
+    orcid_id: 0000-0002-2144-7181
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+```
+
+
+This page is composed by the following main topics:
+
+- Steps of **dataset consolidation** [here](Dataset_Cons_post_ago.html)
+  
+- You can access our **web app** for exploratory analyses from [here](https://agscl.shinyapps.io/application).
+  
+- **Codebook**
+
+<br>
+
+The main processes are summarized in the following figures.
+
+<br>
+
+```{r}
+  #print(knitr::include_graphics("./country_selection_strobe_nov.svg"))
+  knitr::include_graphics(gsub("index.Rmd","country_selection_strobe_nov.svg",rstudioapi::getSourceEditorContext()$path))
+
+```

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Economic distance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for EconDist {wwmetrics}"><tr><td>EconDist {wwmetrics}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Economic distance</h2>
+
+<h3>Description</h3>
+
+<p>Data on Economic distance for 65484 country pairs (256 home countries and 256 host countries) from 1960 to 2016.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+data("EconDist")
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A tibble with 2 428 512 observations and 6 variables:
+</p>
+
+<ul>
+<li><p> ID. A character string indicating the country pair (ISO3 code) and the year.
+</p>
+</li>
+<li><p> year. Integer indicating the year.
+</p>
+</li>
+<li><p> CountryPair. Factor uniting the origin and the destination using &quot;-&quot;.
+</p>
+</li>
+<li><p> origin. Factor indicating the first country (ISO3 code) of the country pair.
+</p>
+</li>
+<li><p> destination. Factor indicating the second country (ISO3 code) of the country pair.
+</p>
+</li>
+<li><p> Economic_distance. Numeric. Economic distance calculated between the two countries forming each country pair based on the differences in GDP in USD.
+</p>
+</li></ul>
+
+
+<h3>Source</h3>
+
+<p><a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD">https://data.worldbank.org/indicator/NY.GDP.MKTP.CD</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>http://www.worldbank.org/
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>wwmetrics</em> version 0.1.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

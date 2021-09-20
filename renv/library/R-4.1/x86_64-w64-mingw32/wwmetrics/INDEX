@@ -1,0 +1,36 @@
+AdminDist               AdminDist
+Coface                  Coface data on country risk and business
+                        climate
+CultDist                Cultural distance
+EIA                     Economic Integration Agreements (EIA)
+EconDist                Economic distance
+FDI                     Foreign Direct Investment (FDI)
+FH_Civil_Liberties      Civil liberties (Freedom House)
+FH_Political_Rights     Political rights (Freedom House)
+GDP                     GDP (Gross Domestic Product)
+GeoDist                 Geographic distances
+Hofstede                Hofstede's cultural dimensions scores
+Major_Languages_by_Country
+                        Major languages by country
+PsychicDistanceStimuli
+                        Psychic distance stimuli (Dow & Karunaratna,
+                        2006)
+PsychicDistance_HakansonAmbos2010
+                        Psychic distance (Hakanson & Ambos, 2010)
+Schwartz                The 7 Schwartz cultural value orientation
+                        scores for 75 countries
+TheGoodCountry          The Good Country Index
+WGI                     Worldwide Governance Indicators
+Within_Country_Diversity
+                        Measures of Within-Country Diversity (Religion
+                        and Language).
+WorldHappinessReport    The World Happiness Report
+big5_apt                Personality profiles of cultures: Aggregate
+                        personality traits using the Big 5 (openness,
+                        conscientiousness, extraversion, agreeableness,
+                        neuroticism)
+big5_ss                 Personality profiles of cultures: Aggregate
+                        personality traits using the Big 5 (openness,
+                        conscientiousness, extraversion, agreeableness,
+                        neuroticism)
+trade                   Trade

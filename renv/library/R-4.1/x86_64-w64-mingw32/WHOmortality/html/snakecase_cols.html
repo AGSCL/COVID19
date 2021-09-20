@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert Column Names to Lower Snake Case</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for snakecase_cols {WHOmortality}"><tr><td>snakecase_cols {WHOmortality}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert Column Names to Lower Snake Case</h2>
+
+<h3>Description</h3>
+
+<p>This function converts all column names of input <code>data.frame</code> to lower snake case.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+snakecase_cols(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a <code>data.frame</code> of the original csv WHO mortality table, this is the output of <code><a href="../../WHOmortality/help/import_who.html">import_who</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a <code>data.frame</code> with snake case column names
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+ccodes &lt;- import_who(path = getwd(), data = "ccode")
+names(ccodes)
+ccodes &lt;- snakecase_cols(ccodes)
+names(ccodes)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>WHOmortality</em> version 0.0.0.9 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

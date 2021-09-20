@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Process Raw WHO Mortality Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for proc_who_mort {WHOmortality}"><tr><td>proc_who_mort {WHOmortality}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Process Raw WHO Mortality Data</h2>
+
+<h3>Description</h3>
+
+<p>This function processes the original WHO mortality csv file to correct data types for each column.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+proc_who_mort(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a <code>data.frame</code> of the original csv WHO mortality table, this is the output of <code><a href="../../WHOmortality/help/import_who.html">import_who</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a <code>data.frame</code> object with modified column data types
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+mort &lt;- import_who(path = getwd(), data = "mort")
+mort &lt;- proc_who_mort(mort)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>WHOmortality</em> version 0.0.0.9 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

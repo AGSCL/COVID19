@@ -1,0 +1,11 @@
+ggsdc                   Visualise seasonal decomposition
+ggseas-package          Seasonal decomposition on the fly
+ldeaths_df              Monthly Deaths from Lung Diseases in the UK
+nzbop                   New Zealand Balance of Payments major
+                        components 1971Q2 to 2015Q2
+stat_decomp             Classical seasonal adjustment Stat
+stat_index              Index Stat
+stat_rollapplyr         Rolling summary Stat
+stat_seas               X13 seasonal adjustment Stat
+stat_stl                LOESS seasonal adjustment Stat
+tsdf                    Time series to data frame

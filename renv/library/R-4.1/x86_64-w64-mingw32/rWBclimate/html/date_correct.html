@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: correct data values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for date_correct {rWBclimate}"><tr><td>date_correct {rWBclimate}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>correct data values</h2>
+
+<h3>Description</h3>
+
+<p>Round start and end dates to conform with data api standards.  See api documentation (http://data.worldbank.org/developers/climate-data-api)
+for full details
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+date_correct(start, end)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>start</code></td>
+<td>
+<p>The start year</p>
+</td></tr>
+<tr valign="top"><td><code>end</code></td>
+<td>
+<p>The end year</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a 2xM matrix where M in the number of periods in the data api
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+date_correct(1921,1957)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rWBclimate</em> version 0.1.5.91 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

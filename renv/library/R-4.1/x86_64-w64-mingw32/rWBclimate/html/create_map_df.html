@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create mapable dataframe</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for create_map_df {rWBclimate}"><tr><td>create_map_df {rWBclimate}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create mapable dataframe</h2>
+
+<h3>Description</h3>
+
+<p>A function that will download maps for a vector of basins or country codes and return a data frame that has the kml output processed such that it can be plotted with ggplot2 and other mapping functions:
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+create_map_df(locator)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>locator</code></td>
+<td>
+<p>The a vector of ISO3 country code's that you want data about. (http://unstats.un.org/unsd/methods/m49/m49alpha.htm) or the basin ID's [1-468] (http://data.worldbank.org/sites/default/files/climate_data_api_basins.pdf)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>kml files can be quite large (100k-600k per country) making downloading them every time you want to make a map time consuming.  To 
+reduce this time it's easiest to download kml files and store them.  To set the directory use a line like this: <code>options(kmlpath="/Users/emh/kmltemp")</code>  The option must be called &quot;kmlpath&quot;.  These files will be persistent until you delete them.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+to_map &lt;- create_map_df(c("USA","MEX","CAN"))
+ggplot(to_map, aes(x=long, y=lat,group=group))+ geom_polygon()
+
+## End(Not run)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rWBclimate</em> version 0.1.5.91 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

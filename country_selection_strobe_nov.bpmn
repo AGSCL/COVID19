@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0p9543g" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="7.3.0">
+  <bpmn:process id="Process_1asgvsi" isExecutable="false">
+    <bpmn:task id="Activity_1ki4568" name="190 Countries from JHU">
+      <bpmn:outgoing>Flow_1iqewox</bpmn:outgoing>
+      <bpmn:outgoing>Flow_04xr85n</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_06w153i" name="186 Countries w/ ISO codes">
+      <bpmn:incoming>Flow_1iqewox</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jastr5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0alqjjr</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1iqewox" sourceRef="Activity_1ki4568" targetRef="Activity_06w153i" />
+    <bpmn:task id="Activity_1n5o8po" name="Available ISO codes from OWID Data">
+      <bpmn:incoming>Flow_04xr85n</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_04xr85n" name="n=4" sourceRef="Activity_1ki4568" targetRef="Activity_1n5o8po" />
+    <bpmn:task id="Activity_1th8z82" name="154 Countries w/ most available information">
+      <bpmn:incoming>Flow_1jastr5</bpmn:incoming>
+      <bpmn:outgoing>Flow_077vrrd</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1henji8</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0sxjf9z</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1jastr5" sourceRef="Activity_06w153i" targetRef="Activity_1th8z82" />
+    <bpmn:task id="Activity_160flq7" name="Discarded countries w/ missing values in variables of interest">
+      <bpmn:incoming>Flow_0alqjjr</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0alqjjr" name="n=32" sourceRef="Activity_06w153i" targetRef="Activity_160flq7" />
+    <bpmn:task id="Activity_0u6nbmb" name="150 eligible countries">
+      <bpmn:incoming>Flow_077vrrd</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_077vrrd" sourceRef="Activity_1th8z82" targetRef="Activity_0u6nbmb" />
+    <bpmn:task id="Activity_1c591a3" name="Country w/ &#60; 90 days since the first case">
+      <bpmn:incoming>Flow_1henji8</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1henji8" name="n=1" sourceRef="Activity_1th8z82" targetRef="Activity_1c591a3" />
+    <bpmn:task id="Activity_060w7b4" name="Country w/ anomalies in the data">
+      <bpmn:incoming>Flow_0sxjf9z</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0sxjf9z" name="n=1" sourceRef="Activity_1th8z82" targetRef="Activity_060w7b4" />
+    <bpmn:textAnnotation id="TextAnnotation_1j7ziuc">
+      <bpmn:text>Not available
+Table 5: Not matched countries of Deaths w/ Consolidated Dataset (Rpubs):
+ - Diamond Princess
+ - Holy See
+ - MS Zaandam
+ - West Bank and Gaza</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_06rdns1" sourceRef="Activity_1n5o8po" targetRef="TextAnnotation_1j7ziuc" />
+    <bpmn:textAnnotation id="TextAnnotation_1d0qorx">
+      <bpmn:text>Table 41. Percentage of Missing data in the Different Time Points By Country (monthly Data) with &gt;1 point (Rpubs):
+ - Andorra
+ - Antigua and Barbuda
+ - Armenia
+ - Bahamas
+ - Comoros
+ - Cuba
+ - Dominica
+ - Equatorial Guinea
+ - Eritrea
+ - Grenada
+ - Guinea-Bissau
+ - Kosovo
+ - Liechtenstein
+ - Maldives
+ - Malta
+ - Marshall Islands
+ - Monaco
+ - Montenegro
+ - Namibia
+ - Macedonia
+ - Saint Kitts and Nevis
+ - Saint Lucia
+ - Saint Vincent and the Grenadines
+ - San Marino
+ - Sao Tome and Principe
+ - Serbia
+ - Somalia
+ - South Sudan
+ - Sudan
+ - Syria
+ - Taiwan
+ - Western Sahara</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1w8hdvt" sourceRef="Activity_160flq7" targetRef="TextAnnotation_1d0qorx" />
+    <bpmn:textAnnotation id="TextAnnotation_08lq6qn">
+      <bpmn:text>Solomon Islands</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_04ig5oq" sourceRef="Activity_1c591a3" targetRef="TextAnnotation_08lq6qn" />
+    <bpmn:textAnnotation id="TextAnnotation_0oj7frb">
+      <bpmn:text>Qatar</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0w91iol" sourceRef="Activity_060w7b4" targetRef="TextAnnotation_0oj7frb" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1asgvsi">
+      <bpmndi:BPMNShape id="TextAnnotation_1j7ziuc_di" bpmnElement="TextAnnotation_1j7ziuc">
+        <dc:Bounds x="420" y="164" width="199.99679158110885" height="127.3100616016427" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1d0qorx_di" bpmnElement="TextAnnotation_1d0qorx">
+        <dc:Bounds x="420" y="300" width="260" height="510" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_08lq6qn_di" bpmnElement="TextAnnotation_08lq6qn">
+        <dc:Bounds x="420" y="815" width="264.2614219712526" height="30.800821355236142" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0oj7frb_di" bpmnElement="TextAnnotation_0oj7frb">
+        <dc:Bounds x="420" y="905" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0sxjf9z_di" bpmnElement="Flow_0sxjf9z">
+        <di:waypoint x="210" y="617" />
+        <di:waypoint x="210" y="920" />
+        <di:waypoint x="280" y="920" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="230" y="903" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1henji8_di" bpmnElement="Flow_1henji8">
+        <di:waypoint x="210" y="617" />
+        <di:waypoint x="210" y="830" />
+        <di:waypoint x="280" y="830" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="230" y="803" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_077vrrd_di" bpmnElement="Flow_077vrrd">
+        <di:waypoint x="210" y="617" />
+        <di:waypoint x="210" y="970" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0alqjjr_di" bpmnElement="Flow_0alqjjr">
+        <di:waypoint x="210" y="390" />
+        <di:waypoint x="210" y="470" />
+        <di:waypoint x="280" y="470" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="227" y="453" width="25" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jastr5_di" bpmnElement="Flow_1jastr5">
+        <di:waypoint x="210" y="390" />
+        <di:waypoint x="210" y="537" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04xr85n_di" bpmnElement="Flow_04xr85n">
+        <di:waypoint x="210" y="170" />
+        <di:waypoint x="210" y="240" />
+        <di:waypoint x="280" y="240" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="230" y="223" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1iqewox_di" bpmnElement="Flow_1iqewox">
+        <di:waypoint x="210" y="170" />
+        <di:waypoint x="210" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1ki4568_di" bpmnElement="Activity_1ki4568">
+        <dc:Bounds x="160" y="90" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06w153i_di" bpmnElement="Activity_06w153i">
+        <dc:Bounds x="160" y="310" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1th8z82_di" bpmnElement="Activity_1th8z82">
+        <dc:Bounds x="160" y="537" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_160flq7_di" bpmnElement="Activity_160flq7">
+        <dc:Bounds x="280" y="430" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0u6nbmb_di" bpmnElement="Activity_0u6nbmb">
+        <dc:Bounds x="160" y="970" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1c591a3_di" bpmnElement="Activity_1c591a3">
+        <dc:Bounds x="280" y="790" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_060w7b4_di" bpmnElement="Activity_060w7b4">
+        <dc:Bounds x="280" y="880" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1n5o8po_di" bpmnElement="Activity_1n5o8po">
+        <dc:Bounds x="280" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_06rdns1_di" bpmnElement="Association_06rdns1">
+        <di:waypoint x="380" y="240" />
+        <di:waypoint x="420" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1w8hdvt_di" bpmnElement="Association_1w8hdvt">
+        <di:waypoint x="380" y="470" />
+        <di:waypoint x="420" y="470" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_04ig5oq_di" bpmnElement="Association_04ig5oq">
+        <di:waypoint x="380" y="830" />
+        <di:waypoint x="420" y="830" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0w91iol_di" bpmnElement="Association_0w91iol">
+        <di:waypoint x="380" y="920" />
+        <di:waypoint x="420" y="920" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

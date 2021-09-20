@@ -1,0 +1,39 @@
+Africa_basin            Basin codes for Africa, used in downloading
+                        maps
+Africa_country          Country codes for all of Africa
+Asia_basin              Basin codes for Asia, used in downloading maps
+Asia_country            Country codes for all of Asia
+Eur_basin               Basin codes for Eur, used in downloading maps
+Eur_country             Country codes for all of Eur
+NoAm_basin              Basin codes for NoAm, used in downloading maps
+NoAm_country            Country codes for all of NoAm
+Oceana_basin            Basin codes for Oceana, used in downloading
+                        maps
+Oceana_country          Country codes for all of Oceana
+SoAm_basin              Basin codes for SoAm, used in downloading maps
+SoAm_country            Country codes for all of SoAm
+check_ISO_code          check country codes
+check_locator           Checks for what kind of locator a user input
+climate_map             Map climate data
+codes                   isocodes data
+create_map_df           Create mapable dataframe
+date_correct            correct data values
+download_kml            Download kml files
+get_climate_data        get_climate_data
+get_data_recursive      wratpper for get_climate_data()
+get_ensemble_climate_data
+                        Download ensemble climate data
+get_ensemble_data_recursive
+                        Wrapper for get_ensemble_climate_data()
+get_ensemble_precip     Download ensemble precipitation data
+get_ensemble_stats      Download ensemble statistics
+get_ensemble_temp       Download ensemble temperature data
+get_historical_data     Download historical climate data
+get_historical_data_recursive
+                        Download historical climate data recursively
+get_historical_precip   Download historical precipitation data
+get_historical_temp     Download historical temperature data
+get_model_precip        Download GCM precipitation data
+get_model_temp          Download GCM temperature data
+kml_to_sp               Convert kml to polygon
+rWBclimate              rWBclimate

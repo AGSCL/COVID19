@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert kml to polygon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for kml_to_sp {rWBclimate}"><tr><td>kml_to_sp {rWBclimate}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert kml to polygon</h2>
+
+<h3>Description</h3>
+
+<p>Create an sp SpatialPolygon or SpatialPolygonDataFrame object from a downloaded KML file and data file
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+kml_to_sp(map_df, df = NULL, crs_string = "+proj=longlat +datum=WGS84")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>map_df</code></td>
+<td>
+<p>a map dataframe generated from create_map_df()</p>
+</td></tr>
+<tr valign="top"><td><code>df</code></td>
+<td>
+<p>a climate dataframe with one piece of data to be mapped to each unique spatial polygon.</p>
+</td></tr>
+<tr valign="top"><td><code>crs_string</code></td>
+<td>
+<p>Coordinate reference string to use in spatial projection.  Default is WSGS84.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If a dataframe is included, a spatial polygon dataframe object is created.  The dataframe must have one unique piece of information per polygon, otherwise an error will be thrown.  However just a basic spatial polygon will be created if no dataframe is included.
+</p>
+
+
+<h3>Value</h3>
+
+<p>a SpatialPolygon object
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+sa_map &lt;- create_map_df(locator=SoAm_country)
+sa_dat &lt;- get_ensemble_temp(SoAm_country,"annualanom",2080,2100)
+sa_dat &lt;- subset(sa_dat,sa_dat$scenario == "a2")
+sa_dat &lt;- subset(sa_dat,sa_dat$percentile == 50)
+sa_poly &lt;- kml_to_sp(sa_map,df = sa_dat)
+### colors are a bit off, but just to verify that data is 
+spplot(sa_poly,"data")
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rWBclimate</em> version 0.1.5.91 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Explore the spread of Covid-19 interactively</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for shiny_covid19_spread {tidycovid19}"><tr><td>shiny_covid19_spread {tidycovid19}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Explore the spread of Covid-19 interactively</h2>
+
+<h3>Description</h3>
+
+<p>A shiny based web app that allows users to customize the
+<code><a href="../../tidycovid19/help/plot_covid19_spread.html">plot_covid19_spread</a></code> display. The display has been
+inpired by the displays created by John Burn-Murdoch for the Financial
+Times. You can use it to customize your <code>plot_covid19_spread()</code>
+display as it allows copying the plot generating code to the clipboard,
+thanks to the fine rclipboard package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+shiny_covid19_spread(plot_options = list(), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>plot_options</code></td>
+<td>
+<p>A named list containing parameters to
+initialize the plot in the shiny app. All parameters of
+<code>plot_covid19_spread()</code> are supported.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Parameters that will be parsed on to <code><a href="../../shiny/help/runApp.html">runApp</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Uses data from the Johns Hopkins University CSSE team on the spread of the
+SARS-CoV-2 virus and the Covid-19 pandemic
+(<a href="https://github.com/CSSEGISandData/COVID-19">https://github.com/CSSEGISandData/COVID-19</a>), from the ACAPS
+governmental measures database
+(<a href="https://www.acaps.org/covid19-government-measures-dataset">https://www.acaps.org/covid19-government-measures-dataset</a>) and from
+the World Bank (<a href="https://data.worldbank.org">https://data.worldbank.org</a>). See the
+documentation of the separate download functions of the package for more
+detail.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+  shiny_covid19_spread()
+
+  df &lt;- download_merged_data(cached = TRUE)
+  shiny_covid19_spread(
+    plot_options = list(data = df, highlight = c("USA", "ESP", "ITA"))
+  )
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>tidycovid19</em> version 0.0.0.9000 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

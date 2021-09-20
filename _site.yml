@@ -1,0 +1,12 @@
+name: "website"
+title: "Temperature as predictor of the probability of high COVID-19 mortality at days 60, 90 and 120 since the onset. A multi-data structure analysis correcting by previous respiratory disease mortality"
+description: |
+  Temperature as predictor of the probability of high COVID-19 mortality at days 60, 90 and 120 since the onset. A multi-data structure analysis correcting by previous respiratory disease mortality
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+output: distill::distill_article

@@ -1,0 +1,30 @@
+download_acaps_npi_data
+                        Download ACAPS non-pharmaceutical interventions
+                        data
+download_apple_mtr_data
+                        Download Apple Mobility Trend Reports Data
+download_ecdc_covid19_data
+                        Download ECDC Data on Covid-19 cases
+download_google_cmr_data
+                        Download Google Community Mobility Reports Data
+download_google_trends_data
+                        Download Google Trends data on Covid-19
+download_jhu_csse_covid19_data
+                        Download Johns Hopkins University CSSE data on
+                        Covid-19
+download_merged_data    Download a merged country-day data frame
+                        containing Covid-19 related data
+download_owid_data      Download Our World in Data data
+download_oxford_npi_data
+                        Download Oxford non-pharmaceutical
+                        interventions data
+download_wbank_data     Download current country-level World Bank data
+map_covid19             Map Covid-19
+plot_covid19_spread     Visualize the spread of the Covid-19 pandemic
+plot_covid19_stripes    Plot Covid-19 Stripes
+shiny_covid19_spread    Explore the spread of Covid-19 interactively
+tidycovid19_data_sources
+                        Documentation of 'tidycovid19' Data Sources
+tidycovid19_variable_definitions
+                        Variable Definitions of 'tidycovid19' Merged
+                        Data Frame

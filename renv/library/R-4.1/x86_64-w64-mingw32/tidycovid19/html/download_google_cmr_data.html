@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Download Google Community Mobility Reports Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for download_google_cmr_data {tidycovid19}"><tr><td>download_google_cmr_data {tidycovid19}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download Google Community Mobility Reports Data</h2>
+
+<h3>Description</h3>
+
+<p>Downloads Google Community Mobility Report data
+(<a href="https://www.google.com/covid19/mobility/">https://www.google.com/covid19/mobility/</a>).
+As stated on this webpage, the &quot;reports chart movement trends over time
+by geography, across different categories of places such as retail and
+recreation, groceries and pharmacies, parks, transit stations,
+workplaces, and residential&quot;. Google prepares these reports to help
+interested parties to assess responses to social distancing guidance
+related to Covid-19.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+download_google_cmr_data(type = "country", silent = FALSE, cached = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>The type of data that you want to retrieve. Can be any subset of
+</p>
+
+<ul>
+<li><p>&quot;country&quot;: Movement trends by country.
+</p>
+</li>
+<li><p>&quot;country_region&quot;: Movement trends by country regions as classified by Google (only available for some countries).
+</p>
+</li>
+<li><p>&quot;country_sub_region&quot;: Movement trends by country sub-regions as classified by Google (only available for some countries).
+</p>
+</li>
+<li><p>&quot;us_county&quot;: Movement trends at the U.S. county level.
+</p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+<p>Whether you want the function to send some status messages to
+the console. Might be informative as downloading will take some time
+and thus defaults to <code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>cached</code></td>
+<td>
+<p>Whether you want to download the cached version of the data
+from the tidycovid19 Github repository instead of retrieving the
+data from the authorative source. Downloading the cached version is
+faster and the cache is updated daily. Defaults to <code>FALSE</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>If only one <code>type</code> was selected, a data frame containing the
+data. Otherwise, a list containing the desired data frames ordered as
+in <code>type</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+df &lt;- download_google_cmr_data(silent = TRUE, cached = TRUE)
+df %&gt;%
+  dplyr::group_by(date) %&gt;%
+  dplyr::summarize(
+    retail_recreation = mean(retail_recreation, na.rm = TRUE)
+  ) %&gt;%
+  ggplot2::ggplot(ggplot2::aes(x = date, y = retail_recreation)) +
+  ggplot2::geom_line()
+
+df &lt;- download_google_cmr_data(type = "country_region", silent = TRUE, cached = TRUE)
+df %&gt;%
+  dplyr::filter(iso3c == "USA") %&gt;%
+  dplyr::select(-iso3c) %&gt;%
+  dplyr::group_by(region) %&gt;%
+  dplyr::summarise(`Retail and Recreation Effect` =
+     max(retail_recreation, na.rm = TRUE) -
+     min(retail_recreation, na.rm = TRUE)) %&gt;%
+  dplyr::rename(`U.S. State` = region) %&gt;%
+  dplyr::arrange(-`Retail and Recreation Effect`)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>tidycovid19</em> version 0.0.0.9000 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

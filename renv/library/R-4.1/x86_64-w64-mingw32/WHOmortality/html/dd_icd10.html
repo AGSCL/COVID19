@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: ICD-10 Mortality Data Dictionary</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for dd_icd10 {WHOmortality}"><tr><td>dd_icd10 {WHOmortality}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>ICD-10 Mortality Data Dictionary</h2>
+
+<h3>Description</h3>
+
+<p>Data dictionary for the ICD-10 codes used in the mortality table, extracted from Table 8 in the
+documentation Word document &quot;Documentation_1May2019.doc&quot;
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+data(dd_icd10)
+</pre>
+
+
+<h3>Format</h3>
+
+<p>A <code>data.frame</code> object containing the column names and descriptions
+for the ICD-10 code table &quot;mort&quot;
+</p>
+
+<dl>
+<dt>code</dt><dd><p>code used in the mortality table</p>
+</dd>
+<dt>detailed</dt><dd><p>detailed ICD-10 code list</p>
+</dd>
+<dt>cause</dt><dd><p>general cause of death</p>
+</dd>
+</dl>
+
+
+<h3>Source</h3>
+
+<p><a href="https://www.who.int/healthinfo/statistics/mortality_rawdata/en/">WHO Mortality Database</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(dd_icd10)
+head(dd_icd10)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>WHOmortality</em> version 0.0.0.9 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

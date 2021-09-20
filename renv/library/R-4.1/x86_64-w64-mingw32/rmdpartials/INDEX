@@ -1,0 +1,13 @@
+as.partial              Convert text or file to a partial
+enlarge_plot            Generate a small plot that will be enlarged in
+                        a modal when clicked
+knit_child_debug        Get some debugging information on various
+                        potential problems when making partials
+partial                 Knit a child document and output as is (render
+                        markup)
+paste.knit_asis         Paste and output as is (render markup)
+print.knit_asis         Print 'knit_asis' as rendered HTML in the
+                        viewer
+regression_diagnostics
+                        Show the estimated coefficients in a regression
+                        and diagnostics

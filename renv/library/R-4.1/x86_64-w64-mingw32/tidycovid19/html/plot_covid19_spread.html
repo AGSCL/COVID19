@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Visualize the spread of the Covid-19 pandemic</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for plot_covid19_spread {tidycovid19}"><tr><td>plot_covid19_spread {tidycovid19}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Visualize the spread of the Covid-19 pandemic</h2>
+
+<h3>Description</h3>
+
+<p>Provides a flexible visualization of the country-level Covid-19 spread,
+inpired by the displays created by John Burn-Murdoch from the Financial
+Times. Uses data from the Johns Hopkins University CSSE team
+(<a href="https://github.com/CSSEGISandData/COVID-19">https://github.com/CSSEGISandData/COVID-19</a>), the ACAPS governmental
+measures database
+(<a href="https://www.acaps.org/covid19-government-measures-dataset">https://www.acaps.org/covid19-government-measures-dataset</a>), and the
+World Bank (<a href="https://data.worldbank.org">https://data.worldbank.org</a>).
+If your are overwhelmed with the options of the plot, explore them with
+<code>shiny_covid19_spread()</code> and use the 'copy code for plot to clipboard'
+option.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plot_covid19_spread(
+  data = download_merged_data(cached = TRUE, silent = TRUE),
+  type = "deaths",
+  min_cases = ifelse(per_capita, ifelse(type == "deaths", 5, 50), ifelse(type ==
+    "deaths", 1000, 10000)),
+  min_by_ctry_obs = 7,
+  edate_cutoff = 180,
+  data_date_str = format(lubridate::as_date(data$timestamp[1]), "%B %d, %Y"),
+  cumulative = TRUE,
+  change_ave = 7,
+  per_capita = FALSE,
+  per_capita_x_axis = ifelse(per_capita, TRUE, FALSE),
+  population_cutoff = 0,
+  log_scale = TRUE,
+  highlight = NULL,
+  exclude_others = FALSE,
+  intervention = NULL
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>The data frame to base the plot on. Should be a merged data
+frame obtained by <a href="../../tidycovid19/help/download_merged_data.html">download_merged_data</a> and defaults to
+<code>download_merged_data(cached = TRUE, silent = TRUE)</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>The statistic that you want to plot. Needs to be either
+&quot;confirmed&quot;, &quot;deaths&quot;, &quot;recovered&quot; or &quot;active&quot;, defined as the difference
+of &quot;confirmed&quot;, &quot;deaths&quot; and &quot;recovered&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>min_cases</code></td>
+<td>
+<p>Defines the zero point of your X axis (the 'event date').
+Defaults to 1,000 cases for deaths and 10,000 cases otherwise.</p>
+</td></tr>
+<tr valign="top"><td><code>min_by_ctry_obs</code></td>
+<td>
+<p>Limits the plot to countries that have at least that
+many days of data since and including the event date. Defaults to 7.</p>
+</td></tr>
+<tr valign="top"><td><code>edate_cutoff</code></td>
+<td>
+<p>The upper limit of the X axis in event days.
+Defaults to 180.</p>
+</td></tr>
+<tr valign="top"><td><code>data_date_str</code></td>
+<td>
+<p>A date string to include in the annotation of the plot
+giving the time when the data was pulled. Defaults to the timestamp of the
+data. Note that you might run into issues with the default when running
+this in a non-english locale. Consider setting it by hand then.</p>
+</td></tr>
+<tr valign="top"><td><code>cumulative</code></td>
+<td>
+<p>If <code>TRUE</code> (the default) data is being plotted as
+cumulative (showing the total figures). If <code>FALSE</code>, (averaged) daily
+changes are plotted instead. See <code>change_ave</code> to set the averaging
+window.</p>
+</td></tr>
+<tr valign="top"><td><code>change_ave</code></td>
+<td>
+<p>Number of days to average over when you plot daily changes.</p>
+</td></tr>
+<tr valign="top"><td><code>per_capita</code></td>
+<td>
+<p>If <code>TRUE</code> data is being plotted as per capita measure
+based on World Bank data. Defaults to <code>FALSE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>per_capita_x_axis</code></td>
+<td>
+<p>If <code>TRUE</code>, the 'event date' cutoff for the x
+axis set by <code>min_cases</code> is evaluated based on by capita
+measures (cases per 100,000  inhabitants). Only feasible when
+<code>per_capita</code> is <code>TRUE</code>. Other than in older versions
+it now defaults to <code>TRUE</code> whenever <code>per_capita</code> is <code>TRUE</code>
+else <code>FALSE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>population_cutoff</code></td>
+<td>
+<p>Do you want to restrict the plot to countries that
+exceed a certain population cutoff? Takes a value in millions and
+defaults to 0. Useful for per capita displays.</p>
+</td></tr>
+<tr valign="top"><td><code>log_scale</code></td>
+<td>
+<p>Do you want the Y-axis to be log-scaled? Defaults to
+<code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>highlight</code></td>
+<td>
+<p>A character vector of ISO3c (ISO 3166-1 alpha-3) codes that
+identify countries that you want to highlight. Using the
+<code>gghighlight</code> package, these observations are highlighted by color
+and labeled while the other are grayed out. In <code>NULL</code> (the default),
+all countries are labeled. This can cause very cluttered plots.</p>
+</td></tr>
+<tr valign="top"><td><code>exclude_others</code></td>
+<td>
+<p>If <code>TRUE</code>, unhighlighted countries are excluded
+from the plot. If <code>FALSE</code> (the default), unhighlighted countries
+are grayed out.</p>
+</td></tr>
+<tr valign="top"><td><code>intervention</code></td>
+<td>
+<p>If not default <code>NULL</code> then this identifies the
+intervention type that you want to be highlighted by a point marker.
+Valid intervention types are based on the ACAPS government measure data
+and include general lockdowns ('lockdown'), social distancing
+('soc_dist'), movement restrictions ('mov_rest'), public health measures
+('pub_health'), and social and economic measures ('soc_econ').</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <code><a href="../../ggplot2/help/ggplot2.html">ggplot2</a></code> object.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+plot_covid19_spread()
+
+merged &lt;- download_merged_data(cached = TRUE, silent = TRUE)
+plot_covid19_spread(merged, highlight = "DEU", intervention = "lockdown")
+
+plot_covid19_spread(merged, type = "recovered", min_by_ctry_obs = 10,
+  edate_cutoff = 40,
+  highlight = c("ITA", "ESP", "FRA", "DEU", "USA"), intervention = "soc_dist"
+)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>tidycovid19</em> version 0.0.0.9000 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

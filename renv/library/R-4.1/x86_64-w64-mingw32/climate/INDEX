@@ -1,0 +1,40 @@
+co2_demo                Examplary CO2 dataset from Mauna Loa
+                        Observatory (NOAA dataset)
+hydro_imgw              Hydrological data from IMGW
+hydro_imgw_annual       Semi-annual and annual hydrological data
+hydro_imgw_daily        Daily hydrological data
+hydro_imgw_monthly      Monthly hydrological data
+imgw_hydro_abbrev       Definitions of hydrological parameters used for
+                        shortening column names from the
+                        danepubliczne.imgw.pl collection
+imgw_hydro_stations     Location of the hydrological stations from the
+                        danepubliczne.imgw.pl collection
+imgw_meteo_abbrev       Definitions of meteorological parameters used
+                        for shortening column names for the
+                        meteorological data from the
+                        danepubliczne.imgw.pl collection
+imgw_meteo_stations     Location of the meteorological stations from
+                        the danepubliczne.imgw.pl collection
+meteo_imgw              Meteorological data from IMGW
+meteo_imgw_daily        Daily IMGW meteorological data
+meteo_imgw_hourly       Hourly IMGW meteorological data
+meteo_imgw_monthly      Monthly IMGW meteorological data
+meteo_noaa_co2          CO2 Mauna Loa (NOAA) dataset
+meteo_noaa_hourly       Hourly NOAA Integrated Surface Hourly (ISH)
+                        meteorological data
+meteo_ogimet            Scrapping meteorological (Synop) data from the
+                        Ogimet webpage
+nearest_stations_imgw   List of nearby meteorological or hydrological
+                        IMGW-PIB stations in Poland
+nearest_stations_nooa   List of nearby SYNOP stations for a defined
+                        geographical location
+nearest_stations_ogimet
+                        List of nearby synop stations for a defined
+                        geographical location
+profile_demo            Examplary sounding profile from University of
+                        Wyoming collection
+sounding_wyoming        Sounding data
+stations_ogimet         Scrapping a list of meteorological (Synop)
+                        stations for a defined country from the Ogimet
+                        webpage
+test_url                Download file in a graceful way

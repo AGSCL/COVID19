@@ -1,0 +1,9 @@
+categories              Google Trends categories.
+countries               Word countries ISO code.
+gtrends                 Google Trends Query
+plot.gtrends            Plot Google Trends interest over time
+setHandleParameters     If 'gtrends' should be used behind a proxy,
+                        especially with NTLM authentication mode, you
+                        need to set the proxy parameters and
+                        credentials using "setHandleParameters"
+                        function
