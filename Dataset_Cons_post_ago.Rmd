@@ -3783,7 +3783,6 @@ Finally, we transformed the dataset into a wide format, with the dates 1, 30, 60
 
 <br>
 
-\<div style="border: 1px solid \#ddd; padding: 5px; overflow-y: scroll; height:600px; overflow-x: scroll; width:100%"\>
 
 ```{r codebook_prep, echo=T, cache=T, paged.print=TRUE,eval=T, warning=F}
 #:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#
@@ -4080,7 +4079,6 @@ data.frame(cbind(var_name= names(codebook_data),var_def=data.table(codebook::var
 #World Bank Climate Data, Aggregated Decennial. decennial average temperature (celsius) and rainfall (milliliters) from the Climate Change Knowledge Portal, by getting the average number of the available monthly data by country: one from 1997-2006, and other from 2017-2016
 ```
 
-\</div\>
 
 ```{r worldmap, echo=T, eval=T,fig.align='center', fig.pos='H', message=FALSE, warning=FALSE,interval=1, fig.cap="Figure 7.Worlwide View of the Number of Deaths since each country's first diagnosed", error=T}
 library(cshapes)      # for historic country boundaries.  Load this early as it calls plyr which clashes with dplyr
@@ -4174,12 +4172,6 @@ library(tidyr)        # for reshaping the UTIP EHII data
  #dplyr::filter(ndays %in% c(1,30,60,90))%>%
 ```
 
-# Shiny Application
-
-You can access our web app from [here](https://agscl.shinyapps.io/application).
-
-# Codebook Deployment
-
 ```{r prepare_codebook, echo=T, error=T, warning=FALSE}
 
 invisible(c("DataExp"))
@@ -4225,6 +4217,16 @@ codebook_data <- detect_missing(codebook_data,
 # However, it will not reverse items automatically.
 codebook_data <- detect_scales(codebook_data)
 
+remove(list=apropos("borders"))
+rm(list=ls(pattern="^t_.{3}$"))  
+rm(list=ls(pattern="^t2019"))
+rm(list=ls(pattern="^t2020"))
+remove(list="weather")
+remove(list="temp_list")
+remove(list=c("tNA","tSA","tIceland","tGlobal","tTimor","tAfrica","tCar","tCongo","vim_agg","tEU"))
+
+#remove(list=startsWith("borders")) "^t_.{3}$" "weather" temp_list
+
       tryCatch(
                      {
       save.image("C:/Users/andre/Dropbox/Covid-19_2020/Article_SecondManuscript/LT Environmental analysis/Databases/merged_data_proj_post_ago.RData")
@@ -4236,10 +4238,8 @@ codebook_data <- detect_scales(codebook_data)
                          }
                    )
 sessionInfo()
-```
-
-```{r codebook_final, echo=T,error=T}
-codebook::codebook(codebook_data) #638622
+#unlink("Dataset_Cons_post_ago_cache", recursive = TRUE)
+#rmarkdown::render("Dataset_Cons_post_ago.Rmd", output_format = "html_document")
 ```
 
 # References

@@ -1,6 +1,5 @@
 ---
 title: "COVID-19 attributed mortality and ambient temperature: A global ecological study using a two-stage regression model"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 description: |
   Repository and steps taken into the construction of the datasets
 site: distill::distill_article
@@ -29,9 +28,10 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Learn more about creating websites with Distill at:
 # https://rstudio.github.io/distill/website.html
-
+Sys.setlocale("LC_TIME", "English")
 ```
 
+# date: `r format(Sys.time(), '%d %B, %Y')`
 
 This page is composed by the following main topics:
 
@@ -39,7 +39,7 @@ This page is composed by the following main topics:
   
 - You can access our **web app** for exploratory analyses from [here](https://agscl.shinyapps.io/application).
   
-- **Codebook**
+- **Codebook** [here](codebook.html)
 
 <br>
 
