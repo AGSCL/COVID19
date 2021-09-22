@@ -36,6 +36,8 @@ Sys.setlocale("LC_TIME", "English")
 This page is composed by the following main topics:
 
 - Steps of **dataset consolidation** [here](Dataset_Cons_post_ago.html)
+
+- Main Analyses [here](Analyses.html)
   
 - You can access our **web app** for exploratory analyses from [here](https://agscl.shinyapps.io/application).
   

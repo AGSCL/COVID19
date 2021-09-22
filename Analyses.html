@@ -1,0 +1,210 @@
+<p>&laquo;dd_include: &ldquo;C:\Users\CISS Fondecyt\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases\header.txt&rdquo; &raquo; tag dd_include failed to find file {bf:C:\Users\CISS Fondecyt\Dropbox\Covid-19&hellip; r(601); <head> <link rel="stylesheet" type="text/css" href="stmarkdown.css"></p>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+</head>
+<h1><a href="#analysis" id="analysis">Analysis</a></h1>
+<p>Date created: 21 Sep 2021.</p>
+<p>Install commands that are unavailable or out of date.</p>
+<pre><code>. clear all
+
+. *rnethelp &quot;http://www.stata-journal.com/software/sj13-1/st0289/stjm.sthlp&quot;
+. 
+. cap noi which sumat
+c:\ado\plus\s\sumat.ado
+*! Part of package matrixtools v. 0.28
+*! Support: Niels Henrik Bruun, niels.henrik.bruun@gmail.com
+*! 2021-01-03 toxl added
+
+. if _rc==111 {
+.         cap noi scc install matrixtools
+.         }
+
+. cap noi which estwrite
+c:\ado\plus\e\estwrite.ado
+*! version 1.2.4 04sep2009
+*! version 1.0.1 15may2007 (renamed from -eststo- to -estwrite-; -append- added)
+*! version 1.0.0 29apr2005 Ben Jann (ETH Zurich)
+
+. if _rc==111 {
+.         cap noi ssc install estwrite
+.         }       
+
+</code></pre>
+<p>We need to obtain the file and the work folder.</p>
+<pre><code>. mata : st_numscalar(&quot;OK&quot;, direxists(&quot;/volumes/sdrive/data//&quot;))
+
+. if scalar(OK) == 1 {
+.         cap noi cd &quot;/volumes/sdrive/data//&quot;
+.         global pathdata &quot;/volumes/sdrive/data//&quot;
+.         di &quot;Location= ${pathdata}; Date: `c(current_date)', considering an OS `c(os)' for the user: `c(username)'&quot;
+. }
+
+. else display &quot;This file does not exist&quot;
+This file does not exist
+
+. 
+. mata : st_numscalar(&quot;OK&quot;, direxists(&quot;C:\Users\Thamara\OneDrive\Escritorio\Covid-19\Datasets\&quot;))
+
+. if scalar(OK) == 1 {
+.         cap noi cd &quot;C:\Users\Thamara\OneDrive\Escritorio\Covid-19\Datasets&quot;
+.         global pathdata &quot;C:\Users\Thamara\OneDrive\Escritorio\Covid-19\Datasets&quot;
+.         global pathdata2 &quot;C:/Users/Thamara/OneDrive/Escritorio/Covid-19/Datasets/&quot;
+.         di &quot;Location= ${pathdata}; Date: `c(current_date)', considering an OS `c(os)' for the user: `c(username)'&quot;
+. }
+
+. else display &quot;This file does not exist&quot;
+This file does not exist
+
+. 
+. mata : st_numscalar(&quot;OK&quot;, direxists(&quot;C:\Users\Thamara\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases&quot;))
+
+. if scalar(OK) == 1 {
+.         cap noi cd &quot;C:\Users\Thamara\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases&quot;
+.         global pathdata &quot;C:\Users\Thamara\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases&quot;
+.         global pathdata2 &quot;C:/Users/Thamara/Dropbox/Covid-19_2020/Article_SecondManuscript/LT Environmental analysis/Databases/&quot;
+.         di &quot;Location= ${pathdata}; Date: `c(current_date)', considering an OS `c(os)' for the user: `c(username)'&quot;
+. }
+
+. else display &quot;This file does not exist&quot;
+This file does not exist
+
+. 
+. mata : st_numscalar(&quot;OK&quot;, direxists(&quot;C:\Users\andre\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases&quot;))
+
+. if scalar(OK) == 1 {
+.         cap noi cd &quot;C:\Users\andre\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases&quot;
+C:\Users\andre\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases
+.         global pathdata &quot;C:\Users\andre\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases&quot;
+.         global pathdata2 &quot;C:/Users/andre/Dropbox/Covid-19_2020/Article_SecondManuscript/LT Environmental analysis/Databases/&quot;
+.         di &quot;Location= ${pathdata}; Date: `c(current_date)', considering an OS `c(os)' for the user: `c(username)'&quot;
+Location= C:\Users\andre\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases; Date: 21 Sep 2021, considering an OS Windows 
+&gt; for the user: andre
+. }
+
+. else display &quot;This file does not exist&quot;
+
+.                 
+. mata : st_numscalar(&quot;OK&quot;, direxists(&quot;C:\Users\CISS Fondecyt\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases&quot;))
+
+. if scalar(OK) == 1 {
+.         cap noi cd &quot;C:\Users\CISS Fondecyt\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases&quot;
+.         global pathdata &quot;C:\Users\CISS Fondecyt\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases&quot;
+.         global pathdata2 &quot;C:/Users/CISS Fondecyt/Dropbox/Covid-19_2020/Article_SecondManuscript/LT Environmental analysis/Databases/&quot;
+.         di &quot;Location= ${pathdata}; Date: `c(current_date)', considering an OS `c(os)' for the user: `c(username)'&quot;
+. }
+
+. else display &quot;This file does not exist&quot;
+This file does not exist
+
+</code></pre>
+<p>Path data= C:\Users\andre\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases;</p>
+<p>Timestamp: 21 Sep 2021, considering that is a Windows OS for the username: andre</p>
+<p>The file is located and named as: C:/Users/andre/Dropbox/Covid-19_2020/Article_SecondManuscript/LT Environmental analysis/Databases/population2017.dta</p>
+<p>The other file is located and named as: C:/Users/andre/Dropbox/Covid-19_2020/Article_SecondManuscript/LT Environmental analysis/Databases/women.dta</p>
+<p>=============================================================================</p>
+<h2><a href="#prepare-dataset" id="prepare-dataset">Prepare dataset</a></h2>
+<p>=============================================================================</p>
+<pre><code>. merge 1:1 country using &quot;${pathdata2}population2017.dta&quot; 
+no variables defined
+r(111);
+
+. drop _merge
+no variables defined
+r(111);
+
+. merge 1:1 countrycode using &quot;${pathdata2}women.dta&quot;
+no variables defined
+r(111);
+
+. drop if population==.
+population not found
+r(111);
+
+.   
+. list if cases_deaths_30==.
+cases_deaths_30 not found
+r(111);
+
+. list if cases_deaths_60==.
+cases_deaths_60 not found
+r(111);
+
+. list if cases_deaths_90==.
+cases_deaths_90 not found
+r(111);
+
+. 
+. list if cases_deaths_60==.
+cases_deaths_60 not found
+r(111);
+
+. 
+. *LESOTHO LSO missing cases deaths 90 and 11 more variables*
+</code></pre>
+<h3><a href="#outcomes-distribution" id="outcomes-distribution">Outcomes distribution</a></h3>
+<pre><code>. histogram low_resp_inf_dths, norm
+no variables defined
+r(111);
+
+. qnorm low_resp_inf_dths
+variable low_resp_inf_dths not found
+r(111);
+
+</code></pre>
+<p>&laquo;dd_graph: saving(qnorm.svg) width(800) replace&raquo; dd_graph tag failed to export graph r(601);</p>
+<p>Amplified just per 100 because we want probabilities.</p>
+<pre><code>. generate low_resp_inf_mortality= (low_resp_inf_dths/Population2017)*100
+low_resp_inf_dths not found
+r(111);
+
+. generate diabetes_mortality = (diabetes_deaths/ Population2017)*100
+diabetes_deaths not found
+r(111);
+
+</code></pre>
+<p>We defined the potential predictors</p>
+<pre><code>. generate resp_mortality = (respiratory_diseases_deaths/ Population2017)*100
+respiratory_diseases_deaths not found
+r(111);
+
+. 
+. qnorm low_resp_inf_mortality
+variable low_resp_inf_mortality not found
+r(111);
+
+. kdensity low_resp_inf_mortality, normal
+variable low_resp_inf_mortality not found
+r(111);
+
+. gen sqrt_capita = gdp_per_capita^2
+gdp_per_capita not found
+r(111);
+
+. scatter  log_gdp log_lowrespmortality, mlabel(countrycode)
+variable log_gdp not found
+r(111);
+
+. *log transform*
+. gen log_lowrespmortality = log(low_resp_inf_mortality)
+low_resp_inf_mortality not found
+r(111);
+
+. qnorm log_lowrespmortality
+variable log_lowrespmortality not found
+r(111);
+
+. kdensity log_lowrespmortality, normal
+variable log_lowrespmortality not found
+r(111);
+
+. gen log_respiratorymortality = log(resp_mortality)
+resp_mortality not found
+r(111);
+
+</code></pre>
+<p>&laquo;dd_graph: saving(_trans_ph_ln_surv_time.svg) width(800) replace&raquo; dd_graph tag failed to export graph r(601);</p>
+<p>Saved at= 20:28:16 21 Sep 2021</p>

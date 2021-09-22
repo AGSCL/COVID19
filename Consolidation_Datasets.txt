@@ -1,0 +1,171 @@
+<<dd_version: 2>>
+<<dd_include: "C:\Users\CISS Fondecyt\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases\header.txt" >>
+<<dd_include: "C:\Users\andre\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases\header.txt" >>
+
+# Analysis
+
+Date created: <<dd_display: "`c(current_date)'">>.
+
+Install commands that are unavailable or out of date.
+
+~~~~
+<<dd_do>>
+clear all
+*rnethelp "http://www.stata-journal.com/software/sj13-1/st0289/stjm.sthlp"
+
+cap noi which sumat
+if _rc==111 {
+	cap noi scc install matrixtools
+	}
+cap noi which estwrite
+if _rc==111 {
+	cap noi ssc install estwrite
+	}	
+<</dd_do>>
+~~~~
+
+We need to obtain the file and the work folder.
+
+~~~~
+<<dd_do>>
+mata : st_numscalar("OK", direxists("/volumes/sdrive/data//"))
+if scalar(OK) == 1 {
+	cap noi cd "/volumes/sdrive/data//"
+	global pathdata "/volumes/sdrive/data//"
+	di "Location= ${pathdata}; Date: `c(current_date)', considering an OS `c(os)' for the user: `c(username)'"
+}
+else display "This file does not exist"
+
+mata : st_numscalar("OK", direxists("C:\Users\Thamara\OneDrive\Escritorio\Covid-19\Datasets\"))
+if scalar(OK) == 1 {
+	cap noi cd "C:\Users\Thamara\OneDrive\Escritorio\Covid-19\Datasets"
+	global pathdata "C:\Users\Thamara\OneDrive\Escritorio\Covid-19\Datasets"
+	global pathdata2 "C:/Users/Thamara/OneDrive/Escritorio/Covid-19/Datasets/"
+	di "Location= ${pathdata}; Date: `c(current_date)', considering an OS `c(os)' for the user: `c(username)'"
+}
+else display "This file does not exist"
+
+mata : st_numscalar("OK", direxists("C:\Users\Thamara\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases"))
+if scalar(OK) == 1 {
+	cap noi cd "C:\Users\Thamara\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases"
+	global pathdata "C:\Users\Thamara\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases"
+	global pathdata2 "C:/Users/Thamara/Dropbox/Covid-19_2020/Article_SecondManuscript/LT Environmental analysis/Databases/"
+	di "Location= ${pathdata}; Date: `c(current_date)', considering an OS `c(os)' for the user: `c(username)'"
+}
+else display "This file does not exist"
+
+mata : st_numscalar("OK", direxists("C:\Users\andre\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases"))
+if scalar(OK) == 1 {
+	cap noi cd "C:\Users\andre\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases"
+	global pathdata "C:\Users\andre\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases"
+	global pathdata2 "C:/Users/andre/Dropbox/Covid-19_2020/Article_SecondManuscript/LT Environmental analysis/Databases/"
+	di "Location= ${pathdata}; Date: `c(current_date)', considering an OS `c(os)' for the user: `c(username)'"
+}
+else display "This file does not exist"
+		
+mata : st_numscalar("OK", direxists("C:\Users\CISS Fondecyt\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases"))
+if scalar(OK) == 1 {
+	cap noi cd "C:\Users\CISS Fondecyt\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases"
+	global pathdata "C:\Users\CISS Fondecyt\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases"
+	global pathdata2 "C:/Users/CISS Fondecyt/Dropbox/Covid-19_2020/Article_SecondManuscript/LT Environmental analysis/Databases/"
+	di "Location= ${pathdata}; Date: `c(current_date)', considering an OS `c(os)' for the user: `c(username)'"
+}
+else display "This file does not exist"
+<</dd_do>>
+~~~~
+
+
+<<dd_display: "Path data= ${pathdata};">>
+
+<<dd_display: "Timestamp: `c(current_date)', considering that is a `c(os)' OS for the username: `c(username)'">>
+
+The file is located and named as: <<dd_display: "${pathdata2}population2017.dta" >>
+
+The other file is located and named as: <<dd_display: "${pathdata2}women.dta" >> 
+
+=============================================================================
+## Prepare dataset
+=============================================================================
+
+~~~~
+<<dd_do>>
+merge 1:1 country using "${pathdata2}population2017.dta" 
+drop _merge
+merge 1:1 countrycode using "${pathdata2}women.dta"
+drop if population==.
+  
+list if cases_deaths_30==.
+list if cases_deaths_60==.
+list if cases_deaths_90==.
+
+list if cases_deaths_60==.
+
+*LESOTHO LSO missing cases deaths 90 and 11 more variables*
+<</dd_do>>
+~~~~ 
+
+
+### Outcomes distribution
+
+~~~~
+<<dd_do>>
+histogram low_resp_inf_dths, norm
+qnorm low_resp_inf_dths
+<</dd_do>>
+~~~~  
+
+Amplified just per 100 because we want probabilities.
+
+~~~~
+<<dd_do>>
+generate low_resp_inf_mortality= (low_resp_inf_dths/Population2017)*100
+generate diabetes_mortality = (diabetes_deaths/ Population2017)*100
+<</dd_do>>
+~~~~
+
+We defined the potential predictors
+
+~~~~
+<<dd_do>>
+generate resp_mortality = (respiratory_diseases_deaths/ Population2017)*100
+
+qnorm low_resp_inf_mortality
+kdensity low_resp_inf_mortality, normal
+gen sqrt_capita = gdp_per_capita^2
+scatter  log_gdp log_lowrespmortality, mlabel(countrycode)
+*log transform*
+gen log_lowrespmortality = log(low_resp_inf_mortality)
+qnorm log_lowrespmortality
+kdensity log_lowrespmortality, normal
+gen log_respiratorymortality = log(resp_mortality)
+
+*#https://www.techtips.surveydesign.com.au/post/how-to-create-an-html-webpage-in-stata-using-markdown
+<</dd_do>>
+~~~~
+
+<select name='Option' id='dlist' onChange='swapImage()'>
+<option value="Qnorm">ALL</option>
+<option value="Scatter plot">WA</option>
+</select>
+<br></br>
+
+<script type="text/javascript">
+function swapImage(){
+	var image1 = document.getElementById("imageToSwap1");
+	var image2 = document.getElementById("imageToSwap2");
+	var dropd = document.getElementById("dlist");
+	image1.src = dropd.value + "case.png";
+	image2.src = dropd.value + "rec.png";
+};
+</script>
+
+
+<table border="0">
+<tr>
+<span style="float:left"><img id="imageToSwap1" src="TOTALcase.png" height="300" width="450" /></span>
+</tr><tr>
+<span style="float:right"><img id="imageToSwap2" src="TOTALrec.png" height="300" width="450" /></span>
+</tr>
+</table>
+
+<<dd_display: "Saved at= `c(current_time)' `c(current_date)'">>
