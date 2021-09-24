@@ -864,7 +864,7 @@ As seen in Table 12, many countries did not had a 3-letter ISO code, possibly to
 <br>
 
 ```{r set_cckp_temp2_07, echo=T, cache= T, paged.print=TRUE,eval=T, warning=F,message=T}
-temp<- 
+temp07<- 
  temp%>%
     dplyr::mutate(iso3= dplyr::case_when(iso3=="The, BHS"~"BHS",
                                         iso3=="The, GMB"~"GMB",
@@ -873,7 +873,7 @@ temp<-
                                         grepl("TZA",iso3)~"TZA", T~as.character(iso3)))
  
 coronavirus_iso3c_3%>%
-  dplyr::left_join(dplyr::select(temp,iso3,date_month, month_temp_07),by= c("iso_code"="iso3","date_month"="date_month"))%>%
+  dplyr::left_join(dplyr::select(temp07,iso3,date_month, month_temp_07),by= c("iso_code"="iso3","date_month"="date_month"))%>%
   dplyr::filter(is.na(month_temp_07))%>%
   dplyr::group_by(iso_code,country)%>%
   dplyr::summarise(N=n(),first_date=min(dates),last_date=max(dates))%>%
@@ -889,7 +889,7 @@ initComplete = JS(
       "}")))
 coronavirus_iso3c_3_1<-
       coronavirus_iso3c_3%>%
-        dplyr::left_join(dplyr::select(temp,iso3,date_month, month_temp_07),by= c("iso_code"="iso3","date_month"="date_month"))
+        dplyr::left_join(dplyr::select(temp07,iso3,date_month, month_temp_07),by= c("iso_code"="iso3","date_month"="date_month"))
 ```
 
 <br>
@@ -914,7 +914,7 @@ rain <- rain%>%
   dplyr::select(iso3,country,year, date_month,rainfall_mm)%>%
   dplyr::rename("month_rainfall_mm_07"="rainfall_mm")
 
-rain <-
+rain07 <-
 rain%>%
     dplyr::mutate(iso3= dplyr::case_when(iso3=="The" & country=="Bahamas"~"BHS",
                                         iso3=="The" & country=="Gambia"~"GMB", 
@@ -938,7 +938,7 @@ initComplete = JS(
 
 ```{r set_cckp_rain2_07, echo=T, cache= T, paged.print=TRUE,eval=T, warning=F,message=T}
 coronavirus_iso3c_3%>%
-  dplyr::left_join(dplyr::select(rain,iso3,date_month, month_rainfall_mm_07),by= c("iso_code"="iso3","date_month"="date_month"))%>%
+  dplyr::left_join(dplyr::select(rain07,iso3,date_month, month_rainfall_mm_07),by= c("iso_code"="iso3","date_month"="date_month"))%>%
   dplyr::filter(is.na(month_rainfall_mm_07))%>%
   dplyr::group_by(iso_code,country)%>%
   dplyr::summarise(N=n(),first_date=min(dates),last_date=max(dates))%>%
@@ -954,7 +954,7 @@ initComplete = JS(
       "}")))
 coronavirus_iso3c_3_2<-
         coronavirus_iso3c_3_1%>%
-          dplyr::left_join(dplyr::select(rain,iso3,date_month, month_rainfall_mm_07),by= c("iso_code"="iso3","date_month"="date_month"))
+          dplyr::left_join(dplyr::select(rain07,iso3,date_month, month_rainfall_mm_07),by= c("iso_code"="iso3","date_month"="date_month"))
 ```
 
 <br>
@@ -1974,6 +1974,8 @@ We considered the following additional variables to include them in the dataset:
 
 -   SP.DYN.LE00.IN= Life expectancy at birth, total (years)
 
+-   SP.DYN.CDRT.IN= Death rate, crude (per 1,000 people)
+
 <br>
 
 However, we must consider the time span for which we would tolerate lagged years, depending on the amount of countries that had this information updated.
@@ -1988,7 +1990,7 @@ However, we must consider the time span for which we would tolerate lagged years
 require(wbstats)
  #wb(country = "all", indicator = "SH.PRV.SMOK", mrv = 3) #no funciona
 data_frame<-data.frame(iso3c="1",N=1, name="1",v="1")
-  for (i in c("SP.POP.TOTL","EN.POP.DNST","SH.MED.PHYS.ZS","SH.MED.BEDS.ZS","EN.ATM.PM25.MC.M3","SP.DYN.LE00.IN")) {
+  for (i in c("SP.POP.TOTL","EN.POP.DNST","SH.MED.PHYS.ZS","SH.MED.BEDS.ZS","EN.ATM.PM25.MC.M3","SP.DYN.LE00.IN", "SP.DYN.CDRT.IN")) {
       for (v in 1:7){
         df<-wb(country = "all", indicator = i, mrv = v)%>% 
                         group_by(iso3c)%>% summarise(N=n())%>%
@@ -2029,8 +2031,9 @@ Additionally, we test whether `EN.ATM.PM25.MC.M3` had different values from the 
 
 ```{r wb_prueba_con_covid19_con_wb, echo=T, cache= T, paged.print=TRUE,eval=T, error=T}
 
-  for (i in c("SP.POP.TOTL","EN.POP.DNST","SH.MED.PHYS.ZS","SH.MED.BEDS.ZS","EN.ATM.PM25.MC.M3","SP.DYN.LE00.IN")) {
-        wb(country = "all", indicator = i, mrv = 6)%>%
+  for (i in c("SP.POP.TOTL","EN.POP.DNST","SH.MED.PHYS.ZS","SH.MED.BEDS.ZS","EN.ATM.PM25.MC.M3","SP.DYN.LE00.IN","SP.DYN.CDRT.IN")) {
+        wb_data(country = "all", indicator = i, mrv = 6)%>%
+      dplyr::filter(date<2020) %>% 
         assign(paste0("wb_",i),.,envir=.GlobalEnv)
   }
 #https://docs.google.com/spreadsheets/d/1eeg9dpIlP9jENJsp-cWY51Kw8fojpLnh6mhxORCTPL8/export?format=csv&id=1eeg9dpIlP9jENJsp-cWY51Kw8fojpLnh6mhxORCTPL8&gid=447690624
@@ -2098,6 +2101,8 @@ t3<-wb_SH.MED.PHYS.ZS%>% dplyr::group_by(iso3c,country)%>% dplyr::summarise(n=n(
 t4<-wb_SH.MED.BEDS.ZS%>% dplyr::group_by(iso3c,country)%>% dplyr::summarise(n=n(),year=max(date))%>% dplyr::arrange(year)
 t5<-wb_EN.ATM.PM25.MC.M3%>% dplyr::group_by(iso3c,country)%>% dplyr::summarise(n=n(),year=max(date))%>% dplyr::arrange(year)
 t6<-wb_SP.DYN.LE00.IN%>% dplyr::group_by(iso3c,country)%>% dplyr::summarise(n=n(),year=max(date))%>% dplyr::arrange(year)
+t7<-wb_SP.DYN.CDRT.IN%>% dplyr::group_by(iso3c,country)%>% dplyr::summarise(n=n(),year=max(date))%>% dplyr::arrange(year)
+
 
 coronavirus_iso3c_8%>%
     dplyr::left_join(dplyr::select(wb_SP.POP.TOTL,iso3c,date,value),
@@ -2218,13 +2223,34 @@ coronavirus_iso3c_8%>%
         "}")))
 ```
 
+```{r wb1_miss_g, echo=T, cache= T, paged.print=TRUE,eval=T, error=T}
+coronavirus_iso3c_8%>%
+  dplyr::left_join(dplyr::select(wb_SP.DYN.CDRT.IN,iso3c,date,value),
+                     by=c("iso_code"="iso3c"))%>%
+  dplyr::rename("life_exp"="value", "year_life_exp"="date")%>%
+  dplyr::filter(is.na(life_exp))%>%
+  dplyr::group_by(country, iso_code)%>%
+  dplyr::summarise(N=n(), last_date=max(dates),first_date=min(dates))%>%
+  dplyr::ungroup()%>%
+      datatable(filter = 'top',colnames = c('ISO 3-letter' =2,'Country' = 3,'Data Points' = 4),
+              caption = htmltools::tags$caption(
+          style = 'caption-side: top; text-align: left;',
+          'Table 37g: ', htmltools::em('Missing Information by Country in Death rate, crude (x1,000)')),
+        options=list(
+  initComplete = JS(
+        "function(settings, json) {",
+        "$(this.api().tables().body()).css({'font-size': '70%'});",
+        "}")))
+#
+```
+
 <br>
 
 Considering the missing data patterns, we decided to merge these indicators anyway.
 
 <br>
 
-```{r wb2, echo=T, cache= T, paged.print=TRUE,eval=T, error=T}
+```{r wb2, echo=T, cache= T, paged.print=TRUE, eval=T, error=T}
 wb_SP.POP.TOTL<-
   wb_SP.POP.TOTL%>%
     dplyr::group_by(iso3c)%>%
@@ -2256,25 +2282,31 @@ wb_SP.DYN.LE00.IN<-
      slice(1)%>%
       ungroup()
 
+wb_SP.DYN.CDRT.IN<-
+  wb_SP.DYN.CDRT.IN%>%
+    dplyr::group_by(iso3c)%>%
+     slice(1)%>%
+      ungroup()
+
 coronavirus_iso3c_9<- coronavirus_iso3c_8%>%
-        dplyr::left_join(dplyr::select(wb_SP.POP.TOTL,iso3c,date,value),
+        dplyr::left_join(dplyr::select(wb_SP.POP.TOTL,iso3c,date,SP.POP.TOTL),
                          by=c("iso_code"="iso3c"))%>%
-        dplyr::rename("total_pop"="value", "year_total_pop"="date")%>%
-        dplyr::left_join(dplyr::select(wb_EN.POP.DNST,iso3c,date,value),
+        dplyr::rename("total_pop"="SP.POP.TOTL", "year_total_pop"="date")%>%
+        dplyr::left_join(dplyr::select(wb_EN.POP.DNST,iso3c,date,EN.POP.DNST),
                          by=c("iso_code"="iso3c"))%>%  
-        dplyr::rename("pop_density"="value", "year_pop_density"="date")%>%
-        dplyr::left_join(dplyr::select(wb_SH.MED.PHYS.ZS,iso3c,date,value),
+        dplyr::rename("pop_density"="EN.POP.DNST", "year_pop_density"="date")%>%
+        dplyr::left_join(dplyr::select(wb_SH.MED.BEDS.ZS,iso3c,date,SH.MED.BEDS.ZS),
                          by=c("iso_code"="iso3c"))%>%
-        dplyr::rename("physicians_per_1000"="value", "year_physicians_per_1000"="date")%>%
-        dplyr::left_join(dplyr::select(wb_SH.MED.BEDS.ZS,iso3c,date,value),
+        dplyr::rename("hosp_beds_per_1000"="SH.MED.BEDS.ZS", "year_hosp_beds_per_1000"="date")%>%
+        dplyr::left_join(dplyr::select(wb_EN.ATM.PM25.MC.M3,iso3c,date,EN.ATM.PM25.MC.M3),
                          by=c("iso_code"="iso3c"))%>%
-        dplyr::rename("hosp_beds_per_1000"="value", "year_hosp_beds_per_1000"="date")%>%
-        dplyr::left_join(dplyr::select(wb_EN.ATM.PM25.MC.M3,iso3c,date,value),
-                         by=c("iso_code"="iso3c"))%>%
-        dplyr::rename("air_pollution_year_pm25"="value", "year_air_pollution_year_pm25"="date")%>%
-        dplyr::left_join(dplyr::select(wb_SP.DYN.LE00.IN,iso3c,date,value),
+        dplyr::rename("air_pollution_year_pm25"="EN.ATM.PM25.MC.M3", "year_air_pollution_year_pm25"="date")%>%
+        dplyr::left_join(dplyr::select(wb_SP.DYN.LE00.IN,iso3c,date,SP.DYN.LE00.IN),
                              by=c("iso_code"="iso3c"))%>%
-            dplyr::rename("life_exp"="value", "year_life_exp"="date")
+        dplyr::rename("life_exp"="SP.DYN.LE00.IN", "year_life_exp"="date") %>% 
+        dplyr::left_join(dplyr::select(wb_SP.DYN.CDRT.IN,iso3c,date,SP.DYN.CDRT.IN),
+                             by=c("iso_code"="iso3c"))%>%
+        dplyr::rename("death_rate_crude"="SP.DYN.CDRT.IN", "year_death_rate_crude"="date")
 ```
 
 ## COVID19 dataset indices
@@ -2353,7 +2385,7 @@ coronavirus_iso3c_10<-
 
 ## Causes of Death, WHO Data
 
-```{r who_mortality1, echo=T, cache= T, paged.print=TRUE,eval=T, error=T}
+```{r who_mortality1, echo=T, cache= T, paged.print=TRUE, eval=T, error=T}
 #  WHO Mortality database (MDB)
 
 #The deaths registered in national vital registration systems up to Dec 15 (obtained from [here](https://www.who.int/healthinfo/statistics/mortality_rawdata/en/)), with underlying cause of death as coded by the relevant national authority. More information on this [link](http://www.ccs.neu.edu/home/kathleen/classes/cs3200/WHODocumentation2015.pdf). We selected the maximum available year with information for each country.
@@ -2378,7 +2410,7 @@ data(dd_mort)
 #Data files - Last updated: 15 December 2019
 
 
-mort_df <- WHOmortality::import_who(path=getwd(),data="mort")
+#mort_df <- WHOmortality::import_who(path=getwd(),data="mort")
 
 dd_mort[1:10,1]
 #
@@ -3597,7 +3629,7 @@ coronavirus_iso3c_13%>%
   dplyr::select(-noaa_station, -noaa_distance,-average_temperature, -minimum_temperature,- maximum_temperature,-rainfall,-handwashing_facilities,-extreme_poverty)%>%
   dplyr::select(-male_smokers, -female_smokers, -gci_2018_rank, -year_hosp_beds_per_1000, -hosp_beds_per_1000,
   -qualification, -eiu_2019_rank, -eiu_2019_overall_score, -hospital_beds_per_thousand, 
-  -decade_temp, -decade_prec, -year_physicians_per_1000, -physicians_per_1000, -aged_65_older, -cpi_score_2019)%>%
+  -decade_temp, -decade_prec, -aged_65_older, -cpi_score_2019)%>%
 assign("every_30_days_dataset",.,envir=.GlobalEnv)
   #assign("monthly_dataset",.,envir=.GlobalEnv)
 ```
@@ -3741,7 +3773,7 @@ We generated a matrix of heterogeneous correlations, to get an idea of the colli
 
 <br>
 
-```{r hetcor, echo=T, cache= T, paged.print=TRUE,eval=T, error=T, fig.cap="Figure 6.Heterogeneous Correlation Matrix"}
+```{r hetcor, echo=T, cache= T, paged.print=TRUE, eval=T, error=T, fig.cap="Figure 6.Heterogeneous Correlation Matrix"}
 require(polycor)
 
 #monthly_dataset_comp_wise_dt<-monthly_dataset_comp_wise%>% dplyr::select_if(is.numeric)%>% dplyr::select(-stringency_ind_oxf,-owid_gbd_year)%>% dplyr::select(-ends_with("mth")) %>% data.frame()
@@ -3802,10 +3834,10 @@ codebook_data<-every_30_days_dataset_comp_wise%>%
                 tidyr::pivot_wider(names_from = ndays, #ndays_rn
                                    names_sep="_",
                                    values_from = c(dates, date_month, cases, cases_deaths, ndays_zero, stringency_ind_oxf, monthly_temp, monthly_prec,month_temp_07, month_rainfall_mm_07,
-month_temp_16, month_rainfall_mm_16,month_temp_agg97_06,month_temp_agg07_16,month_rain_agg97_06,month_rain_agg07_16))%>% 
+month_temp_16, month_rainfall_mm_16,month_temp_agg97_06,month_temp_agg07_16,month_rain_agg97_06,month_rain_agg07_16, TemperatureAvg))%>% 
   tidyr::unnest()%>%
   dplyr::group_by(iso_code)%>%
-  dplyr::mutate_at(vars(dates_1:month_rain_agg07_16_120),~max(.,na.rm=T))%>% #(ncol(.)-1)
+  dplyr::mutate_at(vars(dates_1:TemperatureAvg_120),~max(.,na.rm=T))%>% #(ncol(.)-1)
   #dplyr::mutate_at(vars(date_month_1 :date_month_90),~max(.,na.rm=T))%>%
   dplyr::slice(1)%>%
   #C:\Users\CISS Fondecyt\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases\2020-08-04 Revision on China0s missing values.docx
@@ -3821,12 +3853,24 @@ month_temp_16, month_rainfall_mm_16,month_temp_agg97_06,month_temp_agg07_16,mont
                 ndays_zero_30= ifelse(iso_code=="CHN",30,ndays_zero_30))%>%
   dplyr::mutate(monthly_temp_1=ifelse(iso_code=="CHN",0.4797562,monthly_temp_1),
                 monthly_temp_30= ifelse(iso_code=="CHN",6.674736,monthly_temp_30))%>%
-    dplyr::mutate(monthly_prec_1=ifelse(iso_code=="CHN",16.94781,monthly_prec_1),
+  dplyr::mutate(monthly_prec_1=ifelse(iso_code=="CHN",16.94781,monthly_prec_1),
                 monthly_prec_30= ifelse(iso_code=="CHN",9.502951,monthly_prec_30))%>%
-  dplyr::mutate(month_temp_16_1=ifelse(iso_code=="CHN",0.36,month_temp_16_1),
-                month_temp_16_30= ifelse(iso_code=="CHN",3.92,month_temp_16_30))%>%
-  dplyr::mutate(month_rainfall_mm_16_1=ifelse(iso_code=="CHN",26.6,month_rainfall_mm_16_1),
-                month_rainfall_mm_16_30= ifelse(iso_code=="CHN",10.2,month_rainfall_mm_16_30))%>%
+  dplyr::mutate(month_temp_07_1=ifelse(iso_code=="CHN",as.numeric(temp07[which(temp07$iso3=="CHN" & temp07$date_month=="nov"),names(temp07)[5]]),
+                                       month_temp_07_1),
+                month_temp_07_30= ifelse(iso_code=="CHN",as.numeric(temp07[which(temp07$iso3=="CHN" & temp07$date_month=="dec"),names(temp07)[5]]),
+                                         month_temp_07_30))%>%
+  dplyr::mutate(month_rainfall_mm_07_1=ifelse(iso_code=="CHN",as.numeric(rain07[which(rain07$iso3=="CHN" & rain07$date_month=="nov"),names(rain07)[5]]),
+                                              month_rainfall_mm_07_1),
+                month_rainfall_mm_07_30= ifelse(iso_code=="CHN",as.numeric(rain07[which(rain07$iso3=="CHN" & rain07$date_month=="dec"),names(rain07)[5]]),
+                                              month_rainfall_mm_07_30))%>%
+  dplyr::mutate(month_temp_16_1= ifelse(iso_code=="CHN",as.numeric(temp[which(temp$iso3=="CHN" & temp$date_month=="nov"),names(temp)[5]]),
+                                        month_temp_16_1),
+                month_temp_16_30= ifelse(iso_code=="CHN",as.numeric(temp[which(temp$iso3=="CHN" & temp$date_month=="dec"),names(temp)[5]]),
+                                         month_temp_16_30))%>%  
+  dplyr::mutate(month_rainfall_mm_16_1= ifelse(iso_code=="CHN",as.numeric(rain[which(rain$iso3=="CHN" & rain$date_month=="nov"),names(rain)[5]]),
+                                        month_rainfall_mm_16_1),
+                month_rainfall_mm_16_30= ifelse(iso_code=="CHN",as.numeric(rain[which(rain$iso3=="CHN" & rain$date_month=="dec"),names(rain)[5]]),
+                                         month_rainfall_mm_16_30))%>%  
   dplyr::mutate(month_temp_agg97_06_1=ifelse(iso_code=="CHN",month_temp_agg97_06_60,month_temp_agg97_06_1),
                 month_temp_agg97_06_30= ifelse(iso_code=="CHN",month_temp_agg97_06_60,month_temp_agg97_06_30))%>%
   dplyr::mutate(month_temp_agg07_16_1=ifelse(iso_code=="CHN",month_temp_agg07_16_60,month_temp_agg07_16_1),
@@ -3835,8 +3879,9 @@ month_temp_16, month_rainfall_mm_16,month_temp_agg97_06,month_temp_agg07_16,mont
                 month_rain_agg97_06_30= ifelse(iso_code=="CHN",month_rain_agg97_06_60,month_rain_agg97_06_30))%>%
   dplyr::mutate(month_rain_agg07_16_1=ifelse(iso_code=="CHN",month_rain_agg07_16_60,month_rain_agg07_16_1),
                 month_rain_agg07_16_30= ifelse(iso_code=="CHN",month_rain_agg07_16_60,month_rain_agg07_16_30))%>%
+  dplyr::mutate(TemperatureAvg_1=ifelse(iso_code=="CHN",as.numeric(temp_dt_cons[which(temp_dt_cons$CountryCode=="CHN" & temp_dt_cons$Month==11),"TemperatureAvg"]),TemperatureAvg_1),
+                TemperatureAvg_30= ifelse(iso_code=="CHN",as.numeric(temp_dt_cons[which(temp_dt_cons$CountryCode=="CHN" & temp_dt_cons$Month==12),"TemperatureAvg"]),TemperatureAvg_30))%>%
   ungroup()%>%
-  
   dplyr::mutate(month_temp_16=month_temp_16_2,month_rainfall_mm_16=month_rainfall_mm_16_2,month_temp_07=month_temp_07_2,month_rainfall_mm_07=month_rainfall_mm_07_2)%>%
   dplyr::select(-month_temp_16_2, -month_rainfall_mm_16_2, -month_temp_07_2,-month_rainfall_mm_07_2)
 
@@ -3922,8 +3967,9 @@ codebook::var_label(codebook_data) <- list(
   year_life_exp = 'Year of the available number of Life expectancy at birth (WB)',
   life_exp = 'Life expectancy at birth (WB)',
   
-  life_exp_15_20 = 'Expected Life Expectancy at Age 60 (WHO)',
-
+  death_rate_crude =  'Death rate, crude (per 1,000 people) (WB)',
+  year_death_rate_crude = 'Year of the Death rate, crude (per 1,000 people) (WB)',
+  
   dalys_asthma_normalized = 'YLLs to premature death and disabillity due to asthma (GBD in COVID19 spreadsheet)',
   dalys_lung_disease = 'YLLs to premature death and disabillity due to lung disease (GBD in COVID19 spreadsheet)',
   obesity_both_percent =  'Percentage of Obesity for Both Sexes (GBD in COVID19 spreadsheet)',
@@ -3934,14 +3980,18 @@ codebook::var_label(codebook_data) <- list(
   respiratory_diseases_deaths = 'Deaths due to Respiratory Diseases (GBD in OWID)',
   diabetes_deaths = 'Deaths due to Diabetes (GBD in OWID)',
   life_exp_15_20 = 'Estimated Life expectancy at age 60 (2015-2020) (WHO)',
-  
+
   rate_lo_resp_inf_dth = 'Deaths due to Lower Respiratory Infections per 100M (GBD in OWID)',
   prop_lo_resp_inf_dth = 'Prop. of Deaths due to Lower Respiratory Infections of the Total Pop (GBD in OWID)',
   
   #2021-09-19
   mnth='Month in numeric format (ERA5)',
   yr='Year in numeric format (ERA5)',
-  TemperatureAvg='Avg. Monthly Temperature (celsius) in 2020 (ERA5)',
+  TemperatureAvg_1='Avg. Monthly Temperature (celsius) in 2020 (ERA5) at 0 day(s) since first case',
+  TemperatureAvg_30='Avg. Monthly Temperature (celsius) in 2020 (ERA5) at 30 day(s) since first case',
+  TemperatureAvg_60='Avg. Monthly Temperature (celsius) in 2020 (ERA5) at 60 day(s) since first case',
+  TemperatureAvg_90='Avg. Monthly Temperature (celsius) in 2020 (ERA5) at 90 day(s) since first case',
+  TemperatureAvg_120='Avg. Monthly Temperature (celsius) in 2020 (ERA5) at 120 day(s) since first case',
   
   month_temp_16 = 'Avg. Monthly Temperature (celsius) in 2016 (CCKP)',
   month_rainfall_mm_16 =  'Avg. Monthly Rain (Millimiters) in 2016 (CCKP)', 
