@@ -29,13 +29,13 @@ RemoteHost: api.github.com
 RemoteRepo: tidycovid19
 RemoteUsername: joachim-gassen
 RemoteRef: HEAD
-RemoteSha: efd919a2ec9a74e782e74c15d7468ff1d7189930
+RemoteSha: 36ce6ff560bbca93f62e7de3c8928be6b1f45c1b
 GithubRepo: tidycovid19
 GithubUsername: joachim-gassen
 GithubRef: HEAD
-GithubSHA1: efd919a2ec9a74e782e74c15d7468ff1d7189930
+GithubSHA1: 36ce6ff560bbca93f62e7de3c8928be6b1f45c1b
 NeedsCompilation: no
-Packaged: 2021-09-24 02:44:24 UTC; andre
+Packaged: 2021-10-11 11:40:41 UTC; andre
 Author: Joachim Gassen [aut, cre] (<https://orcid.org/0000-0003-4364-2911>)
 Maintainer: Joachim Gassen <gassen@wiwi.hu-berlin.de>
-Built: R 4.1.1; ; 2021-09-24 02:44:26 UTC; windows
+Built: R 4.1.1; ; 2021-10-11 11:40:43 UTC; windows

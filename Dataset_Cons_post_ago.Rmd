@@ -1,8 +1,8 @@
 ---
 title: "Dataset Consolidation"
 output:
-  html_document: 
-    code_folding: hide
+  distill::distill_article:
+    code_folding: true
     fig_height: 6
     fig_width: 8
     theme: spacelab
@@ -684,14 +684,25 @@ coronavirus_iso3c_2%>%
   dplyr::select(-ndays_zero_deaths, -text, -ndays)%>%
     summarise_at(vars(population:stringency_ind_oxf),~scales::percent(sum(is.na(.))/n()))%>%
   data.frame()%>% t()%>%  data.table::as.data.table(keep.rownames = T)%>% 
-  knitr::kable(.,format = "html", format.args = list(decimal.mark = ".", big.mark = ","),
-               caption = paste0("Table 10. Percentage of Missing data in the Different Time Points & Country By Variables"),
-               align =rep('c', 101),
-               col.names = c("Variables", "% of Miss.")) %>%
-  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"),font_size = 8) %>%
-  kableExtra::add_footnote( c("Note. "), 
-                            notation = "none") %>%
-  kableExtra::scroll_box(width = "100%", height = "375px")
+#rmarkdown::paged_table(options = list(rows.print = 15, cols.print = 5))
+datatable(filter = 'top', colnames = c('Row number' =1,'Variable' = 2, 'Percentage'= 3),
+              caption = htmltools::tags$caption(
+        style = 'caption-side: top; text-align: left;',
+        'Table 10: ', htmltools::em('Percentage of Missing data in the Different Time Points & Country By Variables')),
+      options=list(
+initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().tables().body()).css({'font-size': '80%'});",
+      "}")))
+  # 
+  # knitr::kable(.,format = "html", format.args = list(decimal.mark = ".", big.mark = ","),
+  #              caption = paste0("Table 10. Percentage of Missing data in the Different Time Points & Country By Variables"),
+  #              align =rep('c', 101),
+  #              col.names = c("Variables", "% of Miss.")) %>%
+  # kableExtra::kable_styling(bootstrap_options = c("striped", "hover"),font_size = 8) %>%
+  # kableExtra::add_footnote( c("Note. "), 
+  #                           notation = "none") %>%
+  # kableExtra::scroll_box(width = "100%", height = "375px")
 
 #rm(list=setdiff(ls(), c("coronavirus_iso3c_2","copiar_nombres")))
 ```
@@ -1411,7 +1422,6 @@ We looked into the countries that could have more than one entry by date.
                   style = 'caption-side: top; text-align: left;',
                   'Table 24: ', htmltools::em('Countries with more than one entry by date')),
               options=list(
-                   autoWidth = TRUE,
                   initComplete = JS(
                       "function(settings, json) {",
                       "$(this.api().tables().body()).css({'font-size': '80%'});",
@@ -1630,7 +1640,7 @@ We first explored for the countries that could not be matched.
 
 <br>
 
-```{r CPI2019_2, echo=T, cache= T, paged.print=TRUE,eval=T}
+```{r CPI2019_2, echo=T, cache= T, paged.print=TRUE, eval=T}
 CPI2019%>%
   dplyr::anti_join(coronavirus_iso3c_3_6_5, by=c("iso3"="iso_code"))%>%
     datatable(filter = 'top', colnames = c('ISO 3-letter' =2,'Country' = 3,'Region' = 4,'CPI Score' = 5),
@@ -1638,7 +1648,6 @@ CPI2019%>%
         style = 'caption-side: top; text-align: left;',
         'Table 28: ', htmltools::em('Countries of CPI2019 dataset that did not match with our dataset')),
       options=list(
-    autoWidth = TRUE,
 initComplete = JS(
       "function(settings, json) {",
       "$(this.api().tables().body()).css({'font-size': '80%'});",
@@ -1706,7 +1715,7 @@ hdi%>%
         style = 'caption-side: top; text-align: left;',
         'Table 30: ', htmltools::em('Countries of HDI dataset that did not match with our dataset')),
       options=list(
-    autoWidth = TRUE,
+    #autoWidth = TRUE,
 initComplete = JS(
       "function(settings, json) {",
       "$(this.api().tables().body()).css({'font-size': '80%'});",
@@ -1747,7 +1756,6 @@ hdi%>%
         style = 'caption-side: top; text-align: left;',
         'Table 31: ', htmltools::em('Countries of HDI dataset that did not match with our dataset (tidy)')),
       options=list(
-    autoWidth = TRUE,
 initComplete = JS(
       "function(settings, json) {",
       "$(this.api().tables().body()).css({'font-size': '80%'});",
@@ -1790,7 +1798,7 @@ coronavirus_iso3c_3_6_9%>%
 
 ## Good Country Index
 
-Good country index (v. 1.3) measures how much each of the countries contribute to the planet and the human race through their policies and behaviors, consistent in Science & Technology, Culture, International Peace & Security, World Order, Planet & Climate, Prosperity & Equality, and Health & Well-being [link](https://www.goodcountry.org/index/source-data/). Covers153 countries. For more information about this index, please go to the following [link](https://www.goodcountry.org/index/source-data/).
+Good country index (v. 1.3) measures how much each of the countries contribute to the planet and the human race through their policies and behaviors, consistent in Science & Technology, Culture, International Peace & Security, World Order, Planet & Climate, Prosperity & Equality, and Health & Well-being [link](https://www.goodcountry.org/index/source-data/). Covers 153 countries. For more information about this index, please go to the following [link](https://www.goodcountry.org/index/source-data/).
 
 <br>
 
@@ -2033,7 +2041,8 @@ Additionally, we test whether `EN.ATM.PM25.MC.M3` had different values from the 
 
   for (i in c("SP.POP.TOTL","EN.POP.DNST","SH.MED.PHYS.ZS","SH.MED.BEDS.ZS","EN.ATM.PM25.MC.M3","SP.DYN.LE00.IN","SP.DYN.CDRT.IN")) {
         wb_data(country = "all", indicator = i, mrv = 6)%>%
-      dplyr::filter(date<2020) %>% 
+      dplyr::filter(date<2020 & date>=2000) %>% 
+      dplyr::rename("value"=i) %>% 
         assign(paste0("wb_",i),.,envir=.GlobalEnv)
   }
 #https://docs.google.com/spreadsheets/d/1eeg9dpIlP9jENJsp-cWY51Kw8fojpLnh6mhxORCTPL8/export?format=csv&id=1eeg9dpIlP9jENJsp-cWY51Kw8fojpLnh6mhxORCTPL8&gid=447690624
@@ -2289,24 +2298,24 @@ wb_SP.DYN.CDRT.IN<-
       ungroup()
 
 coronavirus_iso3c_9<- coronavirus_iso3c_8%>%
-        dplyr::left_join(dplyr::select(wb_SP.POP.TOTL,iso3c,date,SP.POP.TOTL),
+        dplyr::left_join(dplyr::select(wb_SP.POP.TOTL,iso3c,date,value),#SP.POP.TOTL
                          by=c("iso_code"="iso3c"))%>%
-        dplyr::rename("total_pop"="SP.POP.TOTL", "year_total_pop"="date")%>%
-        dplyr::left_join(dplyr::select(wb_EN.POP.DNST,iso3c,date,EN.POP.DNST),
+        dplyr::rename("total_pop"="value", "year_total_pop"="date")%>%
+        dplyr::left_join(dplyr::select(wb_EN.POP.DNST,iso3c,date,value),#EN.POP.DNST
                          by=c("iso_code"="iso3c"))%>%  
-        dplyr::rename("pop_density"="EN.POP.DNST", "year_pop_density"="date")%>%
-        dplyr::left_join(dplyr::select(wb_SH.MED.BEDS.ZS,iso3c,date,SH.MED.BEDS.ZS),
+        dplyr::rename("pop_density"="value", "year_pop_density"="date")%>%
+        dplyr::left_join(dplyr::select(wb_SH.MED.BEDS.ZS,iso3c,date,value),#SH.MED.BEDS.ZS
                          by=c("iso_code"="iso3c"))%>%
-        dplyr::rename("hosp_beds_per_1000"="SH.MED.BEDS.ZS", "year_hosp_beds_per_1000"="date")%>%
-        dplyr::left_join(dplyr::select(wb_EN.ATM.PM25.MC.M3,iso3c,date,EN.ATM.PM25.MC.M3),
+        dplyr::rename("hosp_beds_per_1000"="value", "year_hosp_beds_per_1000"="date")%>%
+        dplyr::left_join(dplyr::select(wb_EN.ATM.PM25.MC.M3,iso3c,date,value),#EN.ATM.PM25.MC.M3
                          by=c("iso_code"="iso3c"))%>%
-        dplyr::rename("air_pollution_year_pm25"="EN.ATM.PM25.MC.M3", "year_air_pollution_year_pm25"="date")%>%
-        dplyr::left_join(dplyr::select(wb_SP.DYN.LE00.IN,iso3c,date,SP.DYN.LE00.IN),
+        dplyr::rename("air_pollution_year_pm25"="value", "year_air_pollution_year_pm25"="date")%>%
+        dplyr::left_join(dplyr::select(wb_SP.DYN.LE00.IN,iso3c,date,value),#SP.DYN.LE00.IN
                              by=c("iso_code"="iso3c"))%>%
-        dplyr::rename("life_exp"="SP.DYN.LE00.IN", "year_life_exp"="date") %>% 
-        dplyr::left_join(dplyr::select(wb_SP.DYN.CDRT.IN,iso3c,date,SP.DYN.CDRT.IN),
+        dplyr::rename("life_exp"="value", "year_life_exp"="date") %>% 
+        dplyr::left_join(dplyr::select(wb_SP.DYN.CDRT.IN,iso3c,date,value),#SP.DYN.CDRT.IN
                              by=c("iso_code"="iso3c"))%>%
-        dplyr::rename("death_rate_crude"="SP.DYN.CDRT.IN", "year_death_rate_crude"="date")
+        dplyr::rename("death_rate_crude"="value", "year_death_rate_crude"="date")
 ```
 
 ## COVID19 dataset indices
@@ -2342,14 +2351,14 @@ As seen in the Table above, most of these regions had a problematic status in ge
 
 <br>
 
-```{r covid19_data2, echo=T, cache= T, paged.print=TRUE,eval=T, error=T}
+```{r covid19_data2, echo=T, cache= T, paged.print=TRUE, eval=T, error=T}
 coronavirus_iso3c_9%>%
   dplyr::left_join(dplyr::select(google_covid19,iso3,dalys_asthma_normalized,dalys_lung_disease, obesity_both_percent), by=c("iso_code"="iso3"))%>%
   dplyr::mutate(obesity_both_percent=str_replace(obesity_both_percent, "%", ""),
                 obesity_both_percent=as.numeric(obesity_both_percent))%>%
   dplyr::group_by(country) %>% 
   summarise_at(vars(dalys_asthma_normalized:obesity_both_percent),~sum(is.na(.))/n())%>%  
-  dplyr::mutate(sumVar = rowSums(select(., .dots = all_of(c("dalys_asthma_normalized","dalys_lung_disease","obesity_both_percent")))))%>%
+  dplyr::mutate(sumVar = rowSums(dplyr::select(., .dots = all_of(c("dalys_asthma_normalized","dalys_lung_disease","obesity_both_percent")))))%>%
   dplyr::mutate_at(vars(dalys_asthma_normalized:obesity_both_percent),~scales::percent(.))%>%
   dplyr::filter(sumVar>0)%>%
   dplyr::arrange(desc(sumVar))%>%
@@ -2385,7 +2394,7 @@ coronavirus_iso3c_10<-
 
 ## Causes of Death, WHO Data
 
-```{r who_mortality1, echo=T, cache= T, paged.print=TRUE, eval=T, error=T}
+```{r who_mortality1, echo=T, cache= T, paged.print=TRUE, eval=T, error=F}
 #  WHO Mortality database (MDB)
 
 #The deaths registered in national vital registration systems up to Dec 15 (obtained from [here](https://www.who.int/healthinfo/statistics/mortality_rawdata/en/)), with underlying cause of death as coded by the relevant national authority. More information on this [link](http://www.ccs.neu.edu/home/kathleen/classes/cs3200/WHODocumentation2015.pdf). We selected the maximum available year with information for each country.
@@ -2412,7 +2421,7 @@ data(dd_mort)
 
 #mort_df <- WHOmortality::import_who(path=getwd(),data="mort")
 
-dd_mort[1:10,1]
+#dd_mort[1:10,1]
 #
 country_code_who <-read.csv("https://raw.githubusercontent.com/dancingCamel/WHO-Mortality-Data-API/master/raw_data/country_codes.csv", header=T)
 Morticd10_part1 <-read.csv(unz(gsub("Dataset_Cons_post_ago.Rmd","Morticd10_part1.zip",rstudioapi::getSourceEditorContext()$path), "Morticd10_part1"), header=T,skip=0)
@@ -2447,8 +2456,8 @@ Morticd10_total_std_col %>%
 
 write.csv2(Morticd10_total_std_col_filt,"mortality_cntry.csv", row.names=FALSE, na="")
 
- Morticd10_total_std_col_filt %>% 
-dplyr::filter(name=="Chile") #111.914	en DF, pero lo que tengo es 106,388
+ #Morticd10_total_std_col_filt %>% 
+#dplyr::filter(name=="Chile") #111.914	en DF, pero lo que tengo es 106,388
 
 #número de años distintos
 anos_distintos_por_pais<-
@@ -2545,7 +2554,7 @@ Considering that many countries had dissimilar years available, we selected the 
 
 <br>
 
-```{r linear_deaths_who_plot, echo=T, cache= T, paged.print=TRUE,eval=T, error=T, fig.cap="Figure 5. Linear Trends of Deaths By Year"}
+```{r linear_deaths_who_plot, echo=T, cache= T, fig.align='center', paged.print=TRUE,eval=T, error=T, fig.cap="Figure 5. Linear Trends of Deaths By Year"}
 Sys.setlocale(category = "LC_ALL", locale = "english")
 
 plot_ly(
@@ -2563,7 +2572,7 @@ plot_ly(
 ```
 
 ```{r who_mortality_who2, echo=T, cache= T, paged.print=TRUE,eval=T}
-#coronavirus_iso3c_10 %>%dplyr::filter(grepl("Mau",country)) %>% dplyr::select(country,iso_code)
+ #coronavirus_iso3c_10 %>%dplyr::filter(grepl("Mau",country)) %>% dplyr::select(country,iso_code)
 
 Morticd10_total_std_col_last_5%>%
     dplyr::anti_join(coronavirus_iso3c_10, by=c("name"="country"))%>%
@@ -2907,7 +2916,7 @@ coronavirus_iso3c_12<-
 
 ## Temperature from ERA5
 
-### 1. TEMPERATURE
+### a. TEMPERATURE
 
 2m temperature or near surface temperature is the air temperature at 2 meters above the surface, so it is the temperature that affects people. Reanalysis data uses forecast models and data assimilation systems to "reanalyse" archived observations, creating global data sets describing the recent history of the atmosphere, land surface, and oceans. What was obtained: 2m temperature from ERA5 monthly averaged data on single levels from 1979 to present.
 
@@ -2915,7 +2924,7 @@ The request included data from Nov2019 to Oct2020, area: globally, grid: 0.25 x 
 
 ERA 5: <https://cds.climate.copernicus.eu/cdsapp#!/home>
 
-### 2. COUNTRY PROFILES
+### b. COUNTRY PROFILES
 
 To obtain country information, 148 country profiles were obtained from GADM: <https://gadm.org/index.html>
 
@@ -3508,8 +3517,6 @@ coronavirus_iso3c_13<-
             dplyr::left_join(temp_dt_cons,
               by=c("iso_code"="CountryCode","mnth"="Month", "yr"="Year"))%>%
             ungroup()
-
-
 ```
 
 <br>
@@ -3521,15 +3528,15 @@ coronavirus_iso3c_13<-
 <br>
 
 ```{r miss_by_cntry, echo=T, cache= T, paged.print=TRUE,eval=T, warning=F, error=T}
-col_names_df<-coronavirus_iso3c_13%>%
-    dplyr::select(population:TemperatureAvg)%>% 
+col_names_df_pre<-coronavirus_iso3c_13%>%
+    dplyr::select(population:last_col())%>% 
     names()
 
 coronavirus_iso3c_13%>%
   dplyr::group_by(country) %>% 
-    summarise_at(vars(population:TemperatureAvg),~sum(is.na(.))/n())%>%
-      dplyr::mutate(sumVar = rowSums(dplyr::select(., .dots = all_of(col_names_df))))%>%
-      dplyr::mutate_at(vars(population:TemperatureAvg),~scales::percent(.))%>%
+    summarise_at(vars(population:last_col()),~sum(is.na(.))/n())%>%
+      dplyr::mutate(sumVar = rowSums(dplyr::select(., .dots = all_of(col_names_df_pre))))%>%
+      dplyr::mutate_at(vars(population:last_col()),~scales::percent(.))%>%
     dplyr::filter(sumVar>0)%>%
     dplyr::arrange(desc(sumVar))%>%
   dplyr::rename("sum_of_miss"="sumVar")%>%
@@ -3541,6 +3548,7 @@ coronavirus_iso3c_13%>%
   kableExtra::add_footnote(c(paste("Note. ",nrow(coronavirus_iso3c_13),"observations")), 
                             notation = "none") %>%
   kableExtra::scroll_box(width = "100%", height = "375px")
+#`month_temp_16_m`, `month_rainfall_mm_16_m`, `month_temp_07_m`, `month_rainfall_mm_07_m`, `jan`, etc. don't exist.
 ```
 
 ::: {style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%"}
@@ -3548,7 +3556,7 @@ coronavirus_iso3c_13%>%
 myvars <- names(coronavirus_iso3c_13) %in% c("ndays") 
 
 vim_agg<-
-  VIM::aggr(coronavirus_iso3c_13, col=c('navyblue','yellow'),
+  VIM::aggr(coronavirus_iso3c_13, col=c('navyblue','gray80'),
                     numbers=F, sortVars=TRUE, prop=c(TRUE,FALSE),
                     labels=names(coronavirus_iso3c_13), cex.axis=.5,
                    combined=T,
@@ -3652,13 +3660,24 @@ every_30_days_dataset%>%
     dplyr::mutate(sumVar = rowSums(dplyr::select(., .dots = all_of(col_names_df))))%>%
     summarise_at(vars(population:(ncol(.)-1)),~sum(as.numeric(.)))%>% t()%>% data.frame()%>%
   dplyr::arrange(desc(.))%>%
-  knitr::kable(.,format = "html", format.args = list(decimal.mark = ".", big.mark = ","),
-               caption = paste0("Table 46. Variables with no. of countries with missing data"),
-               align =rep('c', 101)) %>%
-  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"),font_size = 8) %>%
-  kableExtra::add_footnote(c(paste("Note. ",nrow(every_30_days_dataset),"observations")), 
-                            notation = "none") %>%
-  kableExtra::scroll_box(width = "100%", height = "375px")
+  # knitr::kable(.,format = "html", format.args = list(decimal.mark = ".", big.mark = ","),
+  #              caption = paste0("Table 46. Variables with no. of countries with missing data"),
+  #              align =rep('c', 101)) %>%
+  # kableExtra::kable_styling(bootstrap_options = c("striped", "hover"),font_size = 8) %>%
+  # kableExtra::add_footnote(c(paste("Note. ",nrow(every_30_days_dataset),"observations")), 
+  #                           notation = "none") %>%
+  # kableExtra::scroll_box(width = "100%", height = "375px")
+datatable(filter = 'top', colnames = c('Variable' =1,'Missingness' = 2),#, 'Number of missing'= 3
+              caption = htmltools::tags$caption(
+        style = 'caption-side: top; text-align: left;',
+        'Table 46: ', htmltools::em('Variables with no. of countries with missing data')),
+      options=list(
+initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().tables().body()).css({'font-size': '80%'});",
+      "}")))
+
+
 ```
 
 ```{r miss_scenarios, echo=T, cache= T, paged.print=TRUE,eval=F, warning=F, error=T}
@@ -3739,7 +3758,7 @@ excluded_countries<-as.character(unlist(distinct(very_30_days_dataset_miss,count
 
 #monthly_dataset%>%
 every_30_days_dataset%>%
-  dplyr::filter(!country %in% excluded_countries)%>%
+  #dplyr::filter(!country %in% excluded_countries)%>%
   dplyr::mutate(rate_lo_resp_inf_dth=lower_respiratory_infections_deaths/100000)%>%
   dplyr::mutate(prop_lo_resp_inf_dth=lower_respiratory_infections_deaths/population)%>%
   dplyr::mutate(life_exp_15_20=as.numeric(life_exp_15_20))%>%
@@ -3753,7 +3772,12 @@ every_30_days_dataset%>%
 <br>
 
 ```{r miss_by_cntry_final_prueba, echo=T, cache= T, paged.print=TRUE,eval=F, warning=F, error=T}
- drops2 <- c(c("ndays", "cases_deaths","cases"))
+ invisible("Países que tienen valores perdidos")
+copiar_nombres(data.frame(sort(excluded_countries)))
+
+
+invisible("Casos que no tienen valores perdidos")
+drops2 <- c(c("ndays", "cases_deaths","cases"))
  #monthly_dataset_comp_wise[,!(names(monthly_dataset_comp_wise) %in% drops2)]%>%
   every_30_days_dataset_comp_wise[,!(names(every_30_days_dataset_comp_wise) %in% drops2)]%>%
    na.omit()%>%
@@ -3778,7 +3802,7 @@ require(polycor)
 
 #monthly_dataset_comp_wise_dt<-monthly_dataset_comp_wise%>% dplyr::select_if(is.numeric)%>% dplyr::select(-stringency_ind_oxf,-owid_gbd_year)%>% dplyr::select(-ends_with("mth")) %>% data.frame()
 
-every_30_days_dataset_comp_wise_dt<-every_30_days_dataset_comp_wise%>% dplyr::select_if(is.numeric)%>% dplyr::select(-stringency_ind_oxf,-owid_gbd_year)%>% dplyr::select(-ends_with("mth")) %>% data.frame()
+every_30_days_dataset_comp_wise_dt<-every_30_days_dataset_comp_wise%>% dplyr::select_if(is.numeric)%>% dplyr::select(-owid_gbd_year)%>% dplyr::select(-ends_with("mth")) %>% dplyr::select(-mnth,-who_tot_deaths_year,-year_death_rate_crude,-year_total_pop,-year_pop_density,-year_air_pollution_year_pm25,-year_life_exp)%>% data.frame()
 
 
 #Computes a heterogenous correlation matrix, consisting of Pearson product-moment correlations between numeric variables, polyserial correlations between numeric and ordinal variables, and polychoric correlations between 
@@ -3837,7 +3861,7 @@ codebook_data<-every_30_days_dataset_comp_wise%>%
 month_temp_16, month_rainfall_mm_16,month_temp_agg97_06,month_temp_agg07_16,month_rain_agg97_06,month_rain_agg07_16, TemperatureAvg))%>% 
   tidyr::unnest()%>%
   dplyr::group_by(iso_code)%>%
-  dplyr::mutate_at(vars(dates_1:TemperatureAvg_120),~max(.,na.rm=T))%>% #(ncol(.)-1)
+  dplyr::mutate_at(vars(dates_1:last_col()),~max(.,na.rm=T))%>% #(ncol(.)-1)
   #dplyr::mutate_at(vars(date_month_1 :date_month_90),~max(.,na.rm=T))%>%
   dplyr::slice(1)%>%
   #C:\Users\CISS Fondecyt\Dropbox\Covid-19_2020\Article_SecondManuscript\LT Environmental analysis\Databases\2020-08-04 Revision on China0s missing values.docx
@@ -3851,10 +3875,14 @@ month_temp_16, month_rainfall_mm_16,month_temp_agg97_06,month_temp_agg07_16,mont
                 date_month_30= ifelse(iso_code=="CHN","dec",date_month_30))%>%
   dplyr::mutate(ndays_zero_1=ifelse(iso_code=="CHN",1,ndays_zero_1),
                 ndays_zero_30= ifelse(iso_code=="CHN",30,ndays_zero_30))%>%
-  dplyr::mutate(monthly_temp_1=ifelse(iso_code=="CHN",0.4797562,monthly_temp_1),
-                monthly_temp_30= ifelse(iso_code=="CHN",6.674736,monthly_temp_30))%>%
-  dplyr::mutate(monthly_prec_1=ifelse(iso_code=="CHN",16.94781,monthly_prec_1),
-                monthly_prec_30= ifelse(iso_code=="CHN",9.502951,monthly_prec_30))%>%
+  dplyr::mutate(monthly_temp_1=ifelse(iso_code=="CHN",dplyr::filter(global_hist_temp_month ,locator=="CHN",date_month=="nov")$data,monthly_temp_1),
+                monthly_temp_30= ifelse(iso_code=="CHN",dplyr::filter(global_hist_temp_month ,locator=="CHN",date_month=="dec")$data,monthly_temp_30))%>%
+  dplyr::mutate(monthly_prec_1=ifelse(iso_code=="CHN",dplyr::filter(global_hist_prec_month ,locator=="CHN",date_month=="nov")$data,monthly_prec_1),
+                monthly_prec_30= ifelse(iso_code=="CHN",dplyr::filter(global_hist_prec_month ,locator=="CHN",date_month=="dec")$data,monthly_prec_30))%>%
+  
+  #dplyr::mutate(stringency_ind_oxf_1=ifelse(iso_code=="CHN",16.94781,stringency_ind_oxf_1), #NO ES POSIBLE PORQUE NO HAY DATOS
+  #              stringency_ind_oxf_30= ifelse(iso_code=="CHN",9.502951,stringency_ind_oxf_30))%>%
+
   dplyr::mutate(month_temp_07_1=ifelse(iso_code=="CHN",as.numeric(temp07[which(temp07$iso3=="CHN" & temp07$date_month=="nov"),names(temp07)[5]]),
                                        month_temp_07_1),
                 month_temp_07_30= ifelse(iso_code=="CHN",as.numeric(temp07[which(temp07$iso3=="CHN" & temp07$date_month=="dec"),names(temp07)[5]]),
@@ -4130,7 +4158,7 @@ data.frame(cbind(var_name= names(codebook_data),var_def=data.table(codebook::var
 ```
 
 
-```{r worldmap, echo=T, eval=T,fig.align='center', fig.pos='H', message=FALSE, warning=FALSE,interval=1, fig.cap="Figure 7.Worlwide View of the Number of Deaths since each country's first diagnosed", error=T}
+```{r worldmap, echo=T, eval=T, fig.align='center', fig.pos='H', message=FALSE, warning=FALSE,interval=1, fig.cap="Figure 7.Worlwide View of the Number of Deaths since each country's first diagnosed", error=T}
 library(cshapes)      # for historic country boundaries.  Load this early as it calls plyr which clashes with dplyr
 library(ggplot2)
 library(scales)
