@@ -283,7 +283,7 @@ earlyDate<-min(coronavirus$dates)
 
 <br>
 
-We decided to work with some of these countries, particularly those with a greater population, testings or more relevant public policies. That is why we only changed the names of "US" "South Korea", "Taiwan", "Congo "Congo (Kinshasa)", "Democratic Congo", "Burma" and "Czechia". The rest of countries will be dropped, since they were not eligible for further analysis. The Diamond Princess & the MS Zaandam are ships. Also, we had information of China since January 22, 52 days after the first case in Dec. 1st of 2019. We added 52 days to China.
+We decided to work with some of these countries, particularly those with a greater population, testings or more relevant public policies. That is why we only changed the names of "US" "South Korea", "Taiwan", "Congo "Congo (Kinshasa)", "Democratic Congo", "Burma" and "Czechia". The rest of countries will be dropped, since they were not eligible for further analysis. The Diamond Princess & the MS Zaandam are ships. Also, we had information of China since January 22, 52 days after the first case in Dec. 1st of 2019. We added 52 days to China. Update 2021, October: Czhechia & Eswatini did not need a conversion.
 
 <br>
 
@@ -294,8 +294,8 @@ coronavirus%>%
                                     country=="Congo (Kinshasa)"~"Democratic Republic of Congo",
                                     country=="Congo (Brazzaville)"~"Congo",
                                     country=="Cabo Verde"~"Cape Verde",
-                                    country=="Czechia"~"Czech Republic",
-                                    country=="Eswatini"~"Swaziland",
+                                    #country=="Czechia"~"Czechia",
+                                    #country=="Eswatini"~"Swaziland",
                                     country=="Timor-Leste"~"Timor",
                                     country=="Burma"~"Myanmar",
                                     country=="US"~"United States",TRUE~country))%>%
@@ -304,6 +304,8 @@ coronavirus%>%
     dplyr::filter(!is.na(iso_code))%>% #me baja de 32,148 a 30,096
     #group_by(country) %>% summarise(perc_days_with_nas=sum(is.na(iso_code))/max(ndays))%>%datatable()
     assign("coronavirus_iso3c",., envir = .GlobalEnv)
+
+invisible("IMPORTANTE: Ver que no se pierdan países con OWID data")
 
 corona_no_day_zero<-
     coronavirus_iso3c%>%
@@ -402,8 +404,8 @@ coronavirus_deaths<-
                                 country=="Congo (Kinshasa)"~"Democratic Republic of Congo",
                                 country=="Congo (Brazzaville)"~"Congo",
                                 country=="Cabo Verde"~"Cape Verde",
-                                country=="Czechia"~"Czech Republic",
-                                country=="Eswatini"~"Swaziland",
+                                #country=="Czechia"~"Czech Republic",
+                                #country=="Eswatini"~"Swaziland",
                                 country=="Timor-Leste"~"Timor",
                                 country=="Burma"~"Myanmar",
                                 #country=="North Macedonia"~"Macedonia",
@@ -1736,7 +1738,7 @@ hdi<-hdi%>%
                                 country=="Congo (Democratic Republic of the)"~"Democratic Republic of Congo",
                                 country=="Czechia"~"Czech Republic",
                                 country=="Côte d'Ivoire"~"Cote d'Ivoire",
-                                country=="Eswatini (Kingdom of)"~"Swaziland",
+                                country=="Eswatini (Kingdom of)"~"Eswatini",
                                 country=="Iran (Islamic Republic of)"~"Iran",
                                 country=="Korea (Republic of)"~"South Korea",
                                 country=="Lao People's Democratic Republic"~"Laos",
@@ -1927,7 +1929,7 @@ The_Economist_Dem_Index<-
                                             country=="Kyrgyz Republic"~"Kyrgyzstan",
                                             country=="Côte d’Ivoire"~"Cote d'Ivoire",
                                             country=="Bosnia and Hercegovina"~"Bosnia and Herzegovina",
-                                            country=="eSwatini"~"Swaziland",
+                                            country=="eSwatini"~"Eswatini",
                                             country=="Congo (Brazzaville)"~"Congo",
                                             country=="Côte d'Ivoire"~"CIV",TRUE~country))%>%
   dplyr::select(country, qualification,rank, overall_score)
@@ -2904,7 +2906,7 @@ As seen in the Table above, most of these countries did have a complicated posit
 <br>
 
 ```{r life_exp_60_3, echo=T, cache= T, paged.print=TRUE,eval=T}
-coronavirus_iso3c_12<-
+coronavirus_iso3c_115<-
           coronavirus_iso3c_11%>%
               dplyr::left_join(dplyr::select(who_life_exp_60_both_sex,iso, `2015-2020`),
                                by=c("iso_code"="iso"))%>%
@@ -2913,6 +2915,78 @@ coronavirus_iso3c_12<-
             dplyr::mutate(ndays_zero=row_number()+52)%>%
             ungroup()
 ```
+
+## DALYs All ages
+
+We also obtained the Disability-Adjusted Life Year (DALYs) from all causes per 100,000 individuals, standardized by age groups available in this [link](https://ourworldindata.org/burden-of-disease). The variables selected were `DALYs (Disability-Adjusted Life Years) - All causes - Sex: Both - Age: Age-standardized (Rate)` and `DALYs (Disability-Adjusted Life Years) - All causes - Sex: Both - Age: All Ages (Rate)`.
+
+```{r dalys1, echo=T, cache= T, paged.print=TRUE,eval=T}
+daly_all_ages <-tryCatch(
+    {
+       readr::read_csv("C:/Users/andre/Dropbox/Covid-19_2020/Article_SecondManuscript/LT Environmental analysis/Databases/daly-rates-from-all-causes-by-age.csv")%>% 
+        dplyr::select(matches("Entity|Code|Year$|All Ages|Age-standardized")) %>% 
+        dplyr::rename("dalys_std_age_rate"="DALYs (Disability-Adjusted Life Years) - All causes - Sex: Both - Age: Age-standardized (Rate)", "dalys_all_ages_rate"="DALYs (Disability-Adjusted Life Years) - All causes - Sex: Both - Age: All Ages (Rate)")
+    },
+    error = function(e){
+ readr::read_csv(paste0(gsub("Dataset_Cons_post_ago.Rmd","",rstudioapi::getSourceEditorContext()$path),"daly-rates-from-all-causes-by-age.csv")) %>% 
+        dplyr::select(matches("Entity|Code|Year$|All Ages|Age-standardized")) %>% 
+        dplyr::rename("dalys_std_age_rate"="DALYs (Disability-Adjusted Life Years) - All causes - Sex: Both - Age: Age-standardized (Rate)", "dalys_all_ages_rate"="DALYs (Disability-Adjusted Life Years) - All causes - Sex: Both - Age: All Ages (Rate)")
+    }
+)
+```
+
+
+```{r dalys2, echo=T, cache= T, paged.print=TRUE,eval=T}
+coronavirus_iso3c_115%>%
+    dplyr::left_join(dplyr::select(daly_all_ages,Code, dalys_std_age_rate),
+                     by=c("iso_code"="Code"))%>%
+    dplyr::filter(is.na(dalys_std_age_rate))%>%
+    dplyr::group_by(iso_code,country)%>%
+    dplyr::summarise(N=n(), last_date=max(dates),first_date=min(dates))%>%
+    dplyr::filter(N>0)%>%
+    datatable(filter = 'top', colnames = c('ISO 3-letter' =2,'Country' = 3,'Data Points' = 4),
+              caption = htmltools::tags$caption(
+        style = 'caption-side: top; text-align: left;',
+        'Table 45: ', htmltools::em('Countries of our dataset that did not match with dataset of GBD All causes')),
+      options=list(
+initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().tables().body()).css({'font-size': '80%'});",
+      "}")))
+```
+
+```{r dalys3, echo=T, cache= T, paged.print=TRUE,eval=T}
+daly_all_ages%>%
+    dplyr::anti_join(coronavirus_iso3c_115,
+                     by=c("Code"="iso_code"))%>%
+    dplyr::group_by(Code, Entity)%>%
+    dplyr::summarise(N=n(), last_date=max(Year),first_date=min(Year))%>%
+    dplyr::filter(N>0)%>%
+    datatable(filter = 'top', colnames = c('ISO 3-letter' =2,'Country' = 3,'Data Points' = 4),
+              caption = htmltools::tags$caption(
+        style = 'caption-side: top; text-align: left;',
+        'Table 46: ', htmltools::em('Countries of GBD All causes dataset that did not match with our dataset')),
+      options=list(
+initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().tables().body()).css({'font-size': '80%'});",
+      "}")))
+```
+
+```{r dalys4, echo=T, cache= T, paged.print=TRUE,eval=T}
+daly_all_ages_sum<-
+daly_all_ages %>% 
+    dplyr::group_by(Code) %>% 
+    dplyr::arrange(Code, desc(Year)) %>% 
+    dplyr::slice_max(order_by = desc("Year"),n=1)
+
+coronavirus_iso3c_12<-
+    coronavirus_iso3c_115%>%
+    dplyr::left_join(dplyr::select(daly_all_ages_sum,Code,Year,dalys_all_ages_rate, dalys_std_age_rate), by=c("iso_code"="Code"))%>%
+    dplyr::rename("dalys_all_ages_year"="Year")
+```
+
+<br>
 
 ## Temperature from ERA5
 
@@ -3542,7 +3616,7 @@ coronavirus_iso3c_13%>%
   dplyr::rename("sum_of_miss"="sumVar")%>%
   dplyr::select(country,sum_of_miss, everything())%>%
   knitr::kable(.,format = "html", format.args = list(decimal.mark = ".", big.mark = ","),
-               caption = paste0("Table 45. Percentage of Missing data in the Different Time Points By Country"),
+               caption = paste0("Table 47. Percentage of Missing data in the Different Time Points By Country"),
                align =rep('c', 101)) %>%
   kableExtra::kable_styling(bootstrap_options = c("striped", "hover"),font_size = 8) %>%
   kableExtra::add_footnote(c(paste("Note. ",nrow(coronavirus_iso3c_13),"observations")), 
@@ -3670,7 +3744,7 @@ every_30_days_dataset%>%
 datatable(filter = 'top', colnames = c('Variable' =1,'Missingness' = 2),#, 'Number of missing'= 3
               caption = htmltools::tags$caption(
         style = 'caption-side: top; text-align: left;',
-        'Table 46: ', htmltools::em('Variables with no. of countries with missing data')),
+        'Table 48: ', htmltools::em('Variables with no. of countries with missing data')),
       options=list(
 initComplete = JS(
       "function(settings, json) {",
@@ -3746,7 +3820,7 @@ every_30_days_dataset%>%
   #assign("monthly_dataset_miss",.,envir=.GlobalEnv)%>%
   assign("very_30_days_dataset_miss",.,envir=.GlobalEnv)%>%  
   knitr::kable(.,format = "html", format.args = list(decimal.mark = ".", big.mark = ","),
-               caption = paste0("Table 47. Percentage of Missing data in the Different Time Points By Country (monthly Data)"),
+               caption = paste0("Table 49. Percentage of Missing data in the Different Time Points By Country (monthly Data)"),
                align =rep('c', 101)) %>%
   kableExtra::kable_styling(bootstrap_options = c("striped", "hover"),font_size = 8) %>%
   kableExtra::add_footnote(c(paste("Note. ",nrow(every_30_days_dataset),"observations")), 
@@ -4011,6 +4085,11 @@ codebook::var_label(codebook_data) <- list(
 
   rate_lo_resp_inf_dth = 'Deaths due to Lower Respiratory Infections per 100M (GBD in OWID)',
   prop_lo_resp_inf_dth = 'Prop. of Deaths due to Lower Respiratory Infections of the Total Pop (GBD in OWID)',
+  
+  
+  #2021-10-10
+  dalys_all_ages_rate = 'DALYs (Disability-Adjusted Life Years) - All causes - Sex: Both - Age: All Ages (Rate)',
+  dalys_std_age_rate = 'DALYs (Disability-Adjusted Life Years) - All causes - Sex: Both - Age: Age-standardized (Rate)',
   
   #2021-09-19
   mnth='Month in numeric format (ERA5)',
